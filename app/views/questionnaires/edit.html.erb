@@ -1,6 +1,10 @@
-<h1>Editing Questionnaire</h1>
-
-<%= render 'form', questionnaire: @questionnaire %>
-
-<%= link_to 'Show', @questionnaire %> |
-<%= link_to 'Back', questionnaires_path %>
+<div class="row">
+  <div class="col-sm-10 offset-sm-1 mt-5">
+    <h1>Editing Questionnaire</h1>
+    
+    <%= render 'form', questionnaire: @questionnaire %>
+    
+    <%# link_to 'Show', @questionnaire %>
+    <%= link_to 'Back', questionnaires_path, class: 'btn btn-danger' %>
+  </div>
+</div>

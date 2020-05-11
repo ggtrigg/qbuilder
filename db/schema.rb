@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_044228) do
+ActiveRecord::Schema.define(version: 2020_05_10_063656) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -49,5 +49,15 @@ ActiveRecord::Schema.define(version: 2020_05_08_044228) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "blurb"
+    t.integer "answer_type"
+    t.bigint "questionnaire_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "questions", "questionnaires"
 end

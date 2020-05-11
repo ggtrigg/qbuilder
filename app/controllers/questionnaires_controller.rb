@@ -40,6 +40,7 @@ class QuestionnairesController < ApplicationController
   # PATCH/PUT /questionnaires/1
   # PATCH/PUT /questionnaires/1.json
   def update
+    binding.pry
     respond_to do |format|
       if @questionnaire.update(questionnaire_params)
         format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully updated.' }
@@ -69,6 +70,7 @@ class QuestionnairesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def questionnaire_params
-      params.require(:questionnaire).permit(:title, :description)
+      params.require(:questionnaire).permit(:title, :description,
+        questions_attributes: [:blurb, :answer_type])
     end
 end
