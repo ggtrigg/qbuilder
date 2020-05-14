@@ -1,0 +1,35 @@
+<div class="row border rounded">
+  <div class="col-12">
+    <% if notice %>
+      <div class="alert alert-primary alert-dismissible fade show mt-3" role="alert">
+        <p id="notice"><%= notice %></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+  </div>
+    
+  <div class="col-9">
+    <h1 class="mt-3 text-center">
+      <%= @questionnaire.title %>
+    </h1>
+  </div>
+  <div class="col-12 p-3">
+    <%= @questionnaire.description %>
+  </div>
+
+  <div class="col-sm-9 offset-sm-2 border-bottom mb-3">
+    <p><strong>Name:</strong> <%= @response.name %></p>
+  </div>
+    
+  <% @response.answers.each_with_index do |answer, i| %>
+    <div class="col-sm-9 offset-sm-2">
+      <h5>Question <%= i + 1 %>.</h5>
+      <p class="text-muted"><%= answer.question.blurb %></p>
+      <p><%= answer.atext %></p>
+    </div>
+  <% end %>
+  
+  <%# link_to 'Back', questionnaires_path, class: 'btn btn-danger', role: 'button' %>
+</div>

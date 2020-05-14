@@ -40,7 +40,6 @@ class QuestionnairesController < ApplicationController
   # PATCH/PUT /questionnaires/1
   # PATCH/PUT /questionnaires/1.json
   def update
-    binding.pry
     respond_to do |format|
       if @questionnaire.update(questionnaire_params)
         format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully updated.' }

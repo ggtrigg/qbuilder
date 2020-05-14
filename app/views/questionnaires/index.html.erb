@@ -9,7 +9,8 @@
         <tr>
           <th scope="col">Title</th>
           <th scope="col"># Questions</th>
-          <th colspan="3"></th>
+          <th scope="col"># Responses</th>
+          <th colspan="2"></th>
         </tr>
       </thead>
     
@@ -18,11 +19,9 @@
           <tr>
             <td><%= questionnaire.title %></td>
             <td><%= questionnaire.questions.count %></td>
+            <td><%= link_to questionnaire.responses.count, questionnaire_responses_path(questionnaire) %></td>
             <td><%= link_to(questionnaire) do %>
               <%= fa_icon 'eye' %>
-            <% end %></td>
-            <td><%= link_to(edit_questionnaire_path(questionnaire)) do %>
-              <%= fa_icon 'pencil' %>
             <% end %></td>
             <td><%= link_to(questionnaire, method: :delete, data: { confirm: 'Are you sure?' }) do %>
               <%= fa_icon 'trash' %>

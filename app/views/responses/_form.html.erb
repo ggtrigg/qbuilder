@@ -1,0 +1,26 @@
+<%= form_with(model: @response, url: questionnaire_responses_path(@questionnaire), local: true) do |form| %>
+  <% if @response.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
+
+      <ul>
+        <% @response.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <%= form.fields_for :answers, @answer do |f| %>
+    <%= render 'answers/fields', form: f %>
+  <% end %>
+
+  <div class="actions mt-5">
+    <%= form.submit class: 'btn btn-primary'%>
+  </div>
+<% end %>
