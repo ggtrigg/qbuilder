@@ -15,9 +15,11 @@
       <%= @questionnaire.title %>
     </h1>
   </div>
-  <div class="col-3">
-    <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary btn-sm', role: 'button' %>
-  </div>
+  <% unless @questionnaire.responses.count > 0 %>
+    <div class="col-3">
+      <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary btn-sm', role: 'button' %>
+    </div>
+  <% end %>
   <div class="col-12">
     <%= link_to nil, new_questionnaire_response_url(@questionnaire) %>
     <div class="border rounded p-3 my-2">
@@ -27,16 +29,18 @@
     <div class="row p-5 my-2">
       <div class="col-12 mb-2 pb-2 border-bottom">
         <!-- Button trigger modal -->
+        <% unless @questionnaire.responses.count > 0 %>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
           Add Question
         </button>
+        <% end %>
       </div>
       <% @questionnaire.questions.each_with_index do |questn, i| %>
         <div class="col-9">
           <h4>Question <%= i + 1 %>.</h4>
           <p><%= questn.blurb %></p>
           <p class="small">
-            <%= link_to 'Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'} %>
+            <%= link_to('Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'}) unless @questionnaire.responses.count > 0 %>
           </p>
         </div>
         <div class="col-3">

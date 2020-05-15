@@ -26,8 +26,15 @@
   <% @response.answers.each_with_index do |answer, i| %>
     <div class="col-sm-9 offset-sm-2">
       <h5>Question <%= i + 1 %>.</h5>
-      <p class="text-muted"><%= answer.question.blurb %></p>
-      <p><%= answer.atext %></p>
+      <p class="text-light bg-dark px-2"><%= answer.question.blurb %></p>
+      <% case answer.question.answer_type.to_sym %>
+      <% when :single_line, :multi_line %>
+        <p><%= answer.atext %></p>
+      <% when :yes_no %>
+        <p><%= answer.yes_no ? 'Yes' : 'No' %></p>
+      <% when :true_false %>
+        <p><%= answer.yes_no.to_s.humanize %></p>
+      <% end %>
     </div>
   <% end %>
   

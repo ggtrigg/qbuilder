@@ -30,11 +30,10 @@ class ResponsesController < ApplicationController
   # POST /responses.json
   def create
     @response = @questionnaire.responses.build(response_params)
-    binding.pry
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to @questionnaire, notice: 'Response was successfully created.' }
+        format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response.' }
         format.json { render :show, status: :created, location: @response }
       else
         format.html { render :new }
@@ -62,7 +61,7 @@ class ResponsesController < ApplicationController
   def destroy
     @response.destroy
     respond_to do |format|
-      format.html { redirect_to responses_url, notice: 'Response was successfully destroyed.' }
+      format.html { redirect_to questionnaire_responses_url(@questionnaire), notice: 'Response was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
