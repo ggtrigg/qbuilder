@@ -8,4 +8,6 @@ class Questionnaire < ApplicationRecord
   accepts_nested_attributes_for :questions, allow_destroy: true
 
   include Hashid::Rails
+
+  validates :title, presence: true
 end

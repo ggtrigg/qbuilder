@@ -4,4 +4,6 @@ class Response < ApplicationRecord
   accepts_nested_attributes_for :answers
 
   include Hashid::Rails
+
+  validates :name, presence: true
 end

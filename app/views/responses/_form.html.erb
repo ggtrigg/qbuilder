@@ -1,7 +1,7 @@
 <%= form_with(model: @response, url: questionnaire_responses_path(@questionnaire), local: true) do |form| %>
   <% if @response.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <strong><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</strong>
 
       <ul>
         <% @response.errors.full_messages.each do |message| %>
@@ -11,10 +11,18 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
+  <div class="bg-light p-2">
+    <h4>Your details</h4>
+  
+    <div class="form-group row">
+      <%= form.label :name, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :name, class: 'form-control', required: true %>
+      </div>
+    </div>
   </div>
+
+  <hr>
 
   <%= form.fields_for :answers, @answer do |f| %>
     <%= render 'answers/fields', form: f %>

@@ -2,7 +2,7 @@
 
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show edit update destroy]
-  before_action :set_questionnaire, only: %i[index new create show]
+  before_action :set_questionnaire, only: %i[index new create show destroy]
 
   # GET /responses
   # GET /responses.json

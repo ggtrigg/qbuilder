@@ -3,19 +3,19 @@
   <% when :single_line %>
     <div class="form-group">
       <%= form.label :atext, form.object.question.blurb %>
-      <%= form.text_field :atext, class: 'form-control' %>
+      <%= form.text_field :atext, class: 'form-control', required: true %>
     </div>
   <% when :multi_line %>
     <div class="form-group">
       <%= form.label :atext, form.object.question.blurb %>
-      <%= form.text_area :atext, class: 'form-control' %>
+      <%= form.text_area :atext, class: 'form-control', required: true %>
     </div>
   <% when :yes_no %>
     <p>
       <%= form.object.question.blurb %>
     </p>
   <div class="form-check form-check-inline">
-    <%= form.radio_button :yes_no, true, {class: 'form-check-input'} %>
+    <%= form.radio_button :yes_no, true, {class: 'form-check-input', required: true} %>
     <%= form.label :yes_no_true, 'Yes', {class: 'form-check-label'} %>
   </div>
   <div class="form-check form-check-inline">
@@ -27,7 +27,7 @@
       <%= form.object.question.blurb %>
     </p>
   <div class="form-check form-check-inline">
-    <%= form.radio_button :yes_no, true, {class: 'form-check-input'} %>
+    <%= form.radio_button :yes_no, true, {class: 'form-check-input', required: true} %>
     <%= form.label :yes_no_true, 'True', {class: 'form-check-label'} %>
   </div>
   <div class="form-check form-check-inline">
