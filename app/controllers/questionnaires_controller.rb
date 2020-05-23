@@ -1,6 +1,6 @@
 class QuestionnairesController < ApplicationController
   before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :thankyou
 
   # GET /questionnaires
   # GET /questionnaires.json
@@ -60,6 +60,9 @@ class QuestionnairesController < ApplicationController
       format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def thankyou
   end
 
   private

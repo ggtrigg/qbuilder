@@ -23,10 +23,6 @@ class ResponsesController < ApplicationController
     end
   end
 
-  # GET /responses/1/edit
-  def edit;
-  end
-
   # POST /responses
   # POST /responses.json
   def create
@@ -34,24 +30,14 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response.' }
-        format.json { render :show, status: :created, location: @response }
+        if user_signed_in?
+          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response.' }
+          format.json { render :show, status: :created, location: @response }
+        else
+          format.html { redirect_to thankyou_path }
+        end
       else
         format.html { render :new }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /responses/1
-  # PATCH/PUT /responses/1.json
-  def update
-    respond_to do |format|
-      if @response.update(response_params)
-        format.html { redirect_to @response, notice: 'Response was successfully updated.' }
-        format.json { render :show, status: :ok, location: @response }
-      else
-        format.html { render :edit }
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end
     end
