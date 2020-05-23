@@ -34,6 +34,7 @@ class ResponsesController < ApplicationController
           format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response.' }
           format.json { render :show, status: :created, location: @response }
         else
+          ResponseMailer.with(response: @response).send_response.deliver_now
           format.html { redirect_to thankyou_path }
         end
       else

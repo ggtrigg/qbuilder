@@ -37,6 +37,10 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {address: 'ironman.gatewaybbs.com.au',
+        port: Rails.application.credentials.smtp[:port],
+        user_name: Rails.application.credentials.smtp[:user_name],
+        password: Rails.application.credentials.smtp[:password]}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

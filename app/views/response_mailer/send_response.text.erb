@@ -1,0 +1,15 @@
+Response to questionnaire <%= @response.questionnaire.title %>
+<%= @response.questionnaire.description.body.to_plain_text %>
+
+Response from <%= @response.name %>
+<% @response.answers.each_with_index do |answer, i| %>
+  Q<%= i + 1 %>. <%= answer.question.blurb %>
+  <% case answer.question.answer_type.to_sym %>
+    <% when :single_line, :multi_line %>
+      <%= answer.atext %>
+    <% when :yes_no %>
+      <%= answer.yes_no ? 'Yes' : 'No' %>
+    <% when :true_false %>
+      <%= answer.yes_no.to_s.humanize %>
+  <% end %>
+<% end %>
