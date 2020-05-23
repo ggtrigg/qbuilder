@@ -1,10 +1,11 @@
 class QuestionnairesController < ApplicationController
   before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /questionnaires
   # GET /questionnaires.json
   def index
-    @questionnaires = Questionnaire.all
+    @questionnaires = current_user.questionnaires.all
   end
 
   # GET /questionnaires/1
@@ -14,7 +15,7 @@ class QuestionnairesController < ApplicationController
 
   # GET /questionnaires/new
   def new
-    @questionnaire = Questionnaire.new
+    @questionnaire = current_user.questionnaires.new
   end
 
   # GET /questionnaires/1/edit
@@ -24,7 +25,7 @@ class QuestionnairesController < ApplicationController
   # POST /questionnaires
   # POST /questionnaires.json
   def create
-    @questionnaire = Questionnaire.new(questionnaire_params)
+    @questionnaire = current_user.questionnaires.new(questionnaire_params)
 
     respond_to do |format|
       if @questionnaire.save
@@ -69,7 +70,7 @@ class QuestionnairesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def questionnaire_params
-      params.require(:questionnaire).permit(:title, :description,
+      params.require(:questionnaire).permit(:title, :description, :user_id,
         questions_attributes: [:blurb, :answer_type])
     end
 end

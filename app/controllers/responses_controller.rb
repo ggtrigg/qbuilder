@@ -3,6 +3,7 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show edit update destroy]
   before_action :set_questionnaire, only: %i[index new create show destroy]
+  before_action :authenticate_user!, only: %i[index show update destroy]
 
   # GET /responses
   # GET /responses.json

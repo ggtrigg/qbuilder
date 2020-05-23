@@ -24,11 +24,12 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
-gem 'image_processing', '~> 1.2'
 gem 'hashid-rails', '~> 1.4'
+gem 'devise'
+gem 'json'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

@@ -1,0 +1,4 @@
+<nav class="nav bg-light px-4">
+  <%= link_to 'Home', root_path %>
+  <%= link_to('Log out'.html_safe, destroy_user_session_path, method: 'delete', class: 'ml-auto') %>
+</nav>
