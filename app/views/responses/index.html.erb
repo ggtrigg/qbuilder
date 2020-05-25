@@ -14,7 +14,7 @@
       <tbody>
         <% @responses.each do |response| %>
           <tr>
-            <td><%= response.name %></td>
+            <td><%= link_to response.name, questionnaire_response_path(@questionnaire, response), class: 'text-reset' %></td>
             <td><%= link_to questionnaire_response_path(@questionnaire, response) do %>
               <%= fa_icon 'eye' %>
             <% end %></td>

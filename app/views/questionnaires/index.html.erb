@@ -15,9 +15,10 @@
       <tbody>
         <% @questionnaires.each do |questionnaire| %>
           <tr>
-            <td><%= questionnaire.title %></td>
+            <td><%= link_to questionnaire.title, questionnaire, class: 'text-reset' %></td>
             <td><%= questionnaire.questions.count %></td>
-            <td><%= link_to questionnaire.responses.count, questionnaire_responses_path(questionnaire) %></td>
+            <td><%= link_to questionnaire.responses.count, questionnaire_responses_path(questionnaire),
+              {'data-toggle' => 'tooltip', 'data-placement' => 'top', title: 'View reponses'} %></td>
             <td><%= link_to(questionnaire) do %>
               <%= fa_icon 'eye' %>
             <% end %></td>

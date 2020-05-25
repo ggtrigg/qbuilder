@@ -10,7 +10,11 @@
     </div>
   <% end %>
   <div class="col-12">
-    <%= link_to nil, new_questionnaire_response_url(@questionnaire) %>
+    <p class="text-muted">Send this link to the people you wish to complete this questionnaire: 
+    <%= link_to nil, new_questionnaire_response_url(@questionnaire) %></p>
+    <% unless @questionnaire.responses.none? %>
+      <p>Once someone has completed a response you can no longer edit this questionnaire.</p>
+    <% end %>
     <% if @questionnaire.description.present? %>
       <div class="border rounded p-3 my-2">
         <%= @questionnaire.description %>
