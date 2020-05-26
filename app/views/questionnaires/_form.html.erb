@@ -18,6 +18,18 @@
     <%= form.label :description %>
     <%= form.rich_text_area :description %>
   </div>
+  <p>Which of the following recipient details do you require?</p>
+  <div class="custom-control custom-checkbox custom-control-inline">
+    <input type="checkbox" class="custom-control-input" id="nameCheck1" checked disabled>
+    <label class="custom-control-label" for="nameCheck1">Name</label>
+  </div>
+  <% Questionnaire::R_ATTRIBUTES.each do |r_attr| %>
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <%= form.check_box r_attr.to_sym, class: 'custom-control-input' %>
+      <%= form.label r_attr.to_sym, r_attr.gsub(/^r_/, ''), class: 'custom-control-label' %>
+    </div>
+  <% end %>
+
 
   <div class="actions mt-5">
     <h3>Step 2.</h3>

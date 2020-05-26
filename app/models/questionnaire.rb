@@ -11,4 +11,6 @@ class Questionnaire < ApplicationRecord
   include Hashid::Rails
 
   validates :title, presence: true
+
+  R_ATTRIBUTES = %w(r_address r_email r_phone r_age r_sex)
 end

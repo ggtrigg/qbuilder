@@ -73,7 +73,7 @@ class QuestionnairesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def questionnaire_params
-      params.require(:questionnaire).permit(:title, :description, :user_id,
+      params.require(:questionnaire).permit(:title, :description, :user_id, *Questionnaire::R_ATTRIBUTES.map {|r| r.to_sym},
         questions_attributes: [:blurb, :answer_type])
     end
 end
