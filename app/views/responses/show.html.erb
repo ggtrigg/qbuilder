@@ -9,7 +9,12 @@
   </div>
 
   <div class="col-sm-9 offset-sm-2 border-bottom mb-3">
-    <p><strong>Name:</strong> <%= @response.name %></p>
+  <% %w(name address email phone age sex).each do |detail| %>
+    <% val = @response.send(detail) %>
+    <% if val %>
+      <p><strong><%= detail.capitalize %>:</strong> <%= @response.send(detail) %></p>
+    <% end %>
+  <% end %>
   </div>
     
   <% @response.answers.each_with_index do |answer, i| %>

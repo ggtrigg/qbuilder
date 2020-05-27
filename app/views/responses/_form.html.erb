@@ -20,6 +20,46 @@
         <%= form.text_field :name, class: 'form-control', required: true %>
       </div>
     </div>
+    <% if @questionnaire.r_address %>
+      <div class="form-group row">
+        <%= form.label :address, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-10">
+          <%= form.text_area :address, class: 'form-control', required: true %>
+        </div>
+      </div>
+    <% end %>
+    <% if @questionnaire.r_email %>
+      <div class="form-group row">
+        <%= form.label :email, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-10">
+          <%= form.email_field :email, class: 'form-control', required: true %>
+        </div>
+      </div>
+    <% end %>
+    <% if @questionnaire.r_phone %>
+      <div class="form-group row">
+        <%= form.label :phone, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-10">
+          <%= form.telephone_field :phone, class: 'form-control', required: true %>
+        </div>
+      </div>
+    <% end %>
+    <% if @questionnaire.r_age %>
+      <div class="form-group row">
+        <%= form.label :age, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-4">
+          <%= form.number_field :age, class: 'form-control', required: true %>
+        </div>
+      </div>
+    <% end %>
+    <% if @questionnaire.r_sex %>
+      <div class="form-group row">
+        <%= form.label :sex, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-4">
+          <%= form.select :sex, [['Male', 'm'], ['Female', 'f'], ['Other', 'o']], options = {include_blank: true}, html_options = {class: 'custom-select', required: true} %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <hr>

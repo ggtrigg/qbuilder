@@ -58,6 +58,8 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    attr_encrypted (3.1.0)
+      encryptor (~> 3.0.0)
     autoprefixer-rails (9.7.6)
       execjs
     bcrypt (3.1.13)
@@ -88,6 +90,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    encryptor (3.0.0)
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.12.2)
@@ -238,6 +241,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attr_encrypted (~> 3.1.0)
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.4, >= 4.4.1)
   byebug

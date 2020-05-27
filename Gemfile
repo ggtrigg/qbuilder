@@ -27,6 +27,7 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'hashid-rails', '~> 1.4'
 gem 'devise'
 gem 'json'
+gem "attr_encrypted", "~> 3.1.0"
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'

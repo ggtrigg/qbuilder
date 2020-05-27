@@ -67,6 +67,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:name, answers_attributes: %i[id question_id yes_no atext])
+      params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[id question_id yes_no atext])
     end
 end
