@@ -1,7 +1,15 @@
-Response to questionnaire <%= @response.questionnaire.title %>
+Response to questionnaire - <%= @response.questionnaire.title %>
 <%= @response.questionnaire.description.body.to_plain_text %>
 
 Response from <%= @response.name %>
+
+<% %w(address email phone age sex).each do |detail| %>
+  <% val = @response.send(detail) %>
+  <% if val %>
+  <%= detail.capitalize %>: <%= present(detail) %>
+  <% end %>
+<% end %>
+
 <% @response.answers.each_with_index do |answer, i| %>
   Q<%= i + 1 %>. <%= answer.question.blurb %>
   <% case answer.question.answer_type.to_sym %>

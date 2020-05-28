@@ -32,7 +32,11 @@
 
 
   <div class="actions mt-5">
-    <h3>Step 2.</h3>
-    <%= form.submit 'Add questions', class: 'btn btn-primary'%>
+    <% if @questionnaire.created_at.blank? %>
+      <h3>Step 2.</h3>
+      <%= form.submit 'Add questions', class: 'btn btn-primary'%>
+    <% else %>
+      <%= form.submit 'Save', class: 'btn btn-primary mb-3'%>
+    <% end %>
   </div>
 <% end %>

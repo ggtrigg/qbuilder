@@ -56,7 +56,7 @@
       <div class="form-group row">
         <%= form.label :sex, class: 'col-sm-2 col-form-label' %>
         <div class="col-sm-4">
-          <%= form.select :sex, [['Male', 'm'], ['Female', 'f'], ['Other', 'o']], options = {include_blank: true}, html_options = {class: 'custom-select', required: true} %>
+          <%= form.select :sex, Response.sexes.invert, options = {include_blank: true}, html_options = {class: 'custom-select', required: true} %>
         </div>
       </div>
     <% end %>

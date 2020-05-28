@@ -4,10 +4,17 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Response to questionnaire <%= @response.questionnaire.title %></h1>
+    <h1>Response to questionnaire - <%= @response.questionnaire.title %></h1>
     <p><%= @response.questionnaire.description %></p>
     <hr>
     <h3>Response from <%= @response.name %></h3>
+    <% %w(address email phone age sex).each do |detail| %>
+      <% val = @response.send(detail) %>
+      <% if val %>
+        <p><strong><%= detail.capitalize %>:</strong> <%= present(detail) %></p>
+      <% end %>
+    <% end %>
+    <br>
     <% @response.answers.each_with_index do |answer, i| %>
       <p><strong>Q<%= i + 1 %>.</strong>
       <%= answer.question.blurb %></p>
