@@ -35,7 +35,7 @@
           <h4>Question <%= i + 1 %>.</h4>
           <p><%= questn.blurb %></p>
           <% if questn.answer_type.downcase.start_with? 'multiple_choice' %>
-          <p><strong>Choices: </strong><%= questn.choices.split.join(' &bull; ').html_safe %></p>
+          <p><strong>Choices: </strong><%= questn.choices.split(/\R/).join(' &bull; ').html_safe %></p>
           <% end %>
           <p class="small">
             <%= link_to('Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'}) unless @questionnaire.responses.count > 0 %>

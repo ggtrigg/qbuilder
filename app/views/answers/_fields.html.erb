@@ -39,7 +39,7 @@
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% form.object.question.choices.split.each_with_index do |choice, index|%>
+    <% form.object.question.choices.split(/\R/).each_with_index do |choice, index|%>
     <div class="custom-control custom-radio">
       <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
       <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
@@ -51,7 +51,7 @@
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% form.object.question.choices.split.each_with_index do |choice, index|%>
+    <% form.object.question.choices.split(/\R/).each_with_index do |choice, index|%>
     <div class="custom-control custom-checkbox">
       <%= form.check_box :choice, {multiple: true, class: 'custom-control-input'}, index, nil %>
       <%= form.label "choice_#{index}", choice, {class: 'custom-control-label'} %>

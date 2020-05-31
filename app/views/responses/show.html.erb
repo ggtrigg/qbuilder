@@ -29,10 +29,10 @@
       <% when :true_false %>
         <p><%= answer.yes_no.to_s.humanize %></p>
       <% when :multiple_choice_single %>
-        <p><%= answer.question.choices.split[answer.choice.to_i] %></p>
+        <p><%= answer.question.choices.split(/\R/)[answer.choice.to_i] %></p>
       <% when :multiple_choice_any %>
         <% if answer.choice.present? %>
-          <p><%= answer.question.choices.split.values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %></p>
+          <p><%= answer.question.choices.split(/\R/).values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %></p>
         <% else %>
           <p class="text-muted">(No choices selected)</p>
         <% end %>
