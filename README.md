@@ -10,9 +10,12 @@
 
 * Question types can be Yes/No, True/False, single line text, multi line text. Multiple choice is being considered.
 
+A running qbuilder installation can be found at https://www.glenntrigg.net/qbuilder and a sample questionnaire form at
+https://www.glenntrigg.net/qbuilder/questionnaires/31QhZ3/responses/new .
+
 ## Installation
 
-* Ruby version - 6.0.3
+* Rails version - 6.0.3
 
 * System dependencies
   - bootstrap 4.4
@@ -27,10 +30,15 @@
   Use `bin/rails credentials:edit` to add the following entries:
 
   ```
+  database:
+    host: hostname
+    database: db_name
+    username: db_username
+    password: db_password
   smtp:
-      user_name: 'your-smtp-username'
-      password: 'your-smtp-password'
-      port: smtp-port
+    user_name: your-smtp-username
+    password: your-smtp-password
+    port: smtp-port
   response:
     name_key: 256-bit-random-key
     address_key: 256-bit-random-key
@@ -40,6 +48,8 @@
     sex_key: 256-bit-random-key
   ```
   I used the command `ruby -r securerandom -e '6.times { puts SecureRandom.alphanumeric(32) }'` to generate the 6 keys. These are used by `attr_encrypted` for encrypting the responder personal data.
+
+  Run `bin/yarn install` to install all javascript dependencies.
 
 * Database creation
 
