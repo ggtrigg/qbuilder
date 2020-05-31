@@ -73,8 +73,10 @@ https://www.glenntrigg.net/qbuilder/questionnaires/31QhZ3/responses/new .
 
 ## TODO
 
-  * Multiple choice type questions
+  * User account administration
 
   * Paginating the list of responses for a questionnaire
 
   * Exporting response data
+
+  * Test cases

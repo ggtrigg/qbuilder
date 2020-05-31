@@ -30,8 +30,8 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        if user_signed_in?
-          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response.' }
+        if user_signed_in? && (@questionnaire.user == current_user)
+          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response. (You responded to your own questoinnaire!)' }
           format.json { render :show, status: :created, location: @response }
         else
           ResponseMailer.with(response: @response).send_response.deliver_now
@@ -67,6 +67,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[id question_id yes_no atext])
+      params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[id question_id yes_no atext choice] << {choice: []})
     end
 end
