@@ -39,8 +39,8 @@
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% form.object.question.choices.split(/\R/).each_with_index do |choice, index|%>
-    <div class="custom-control custom-radio">
+    <% form.object.question.choices.each_with_index do |choice, index|%>
+    <div class="custom-control custom-radio <%= 'custom-control-inline' if form.object.question.inlineable? %>">
       <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
       <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
     </div>
@@ -51,8 +51,8 @@
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% form.object.question.choices.split(/\R/).each_with_index do |choice, index|%>
-    <div class="custom-control custom-checkbox">
+    <% form.object.question.choices.each_with_index do |choice, index|%>
+    <div class="custom-control custom-checkbox <%= 'custom-control-inline' if form.object.question.inlineable? %>">
       <%= form.check_box :choice, {multiple: true, class: 'custom-control-input'}, index, nil %>
       <%= form.label "choice_#{index}", choice, {class: 'custom-control-label'} %>
     </div>

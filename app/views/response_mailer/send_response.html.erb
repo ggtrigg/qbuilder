@@ -26,6 +26,14 @@
           <%= answer.yes_no ? 'Yes' : 'No' %>
         <% when :true_false %>
           <%= answer.yes_no.to_s.humanize %>
+        <% when :multiple_choice_single %>
+          <%= answer.question.choices[answer.choice.to_i] %>
+        <% when :multiple_choice_any %>
+          <% if answer.choice.present? %>
+            <%= answer.question.choices.values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %>
+          <% else %>
+            (No choices selected)
+          <% end %>
       <% end %></p>
     <% end %>
   </body>
