@@ -56,6 +56,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    acts_as_list (1.0.1)
+      activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     attr_encrypted (3.1.0)
@@ -109,6 +111,8 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     json (2.3.0)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -245,6 +249,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   attr_encrypted (~> 3.1.0)
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.4, >= 4.4.1)
@@ -255,6 +260,7 @@ DEPENDENCIES
   hashid-rails (~> 1.4)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  jquery-ui-rails
   json
   listen (~> 3.2)
   mysql2 (>= 0.4.4)

@@ -21,8 +21,8 @@
       </div>
     <% end %>
     
-    <div class="row p-5 my-2">
-      <div class="col-12 mb-2 pb-2 border-bottom">
+    <div class="row my-2">
+      <div class="col-12">
         <!-- Button trigger modal -->
         <% if @questionnaire.responses.none? %>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -30,19 +30,23 @@
         </button>
         <% end %>
       </div>
+    </div>
+    <div <%= 'id=questions' if @questionnaire.responses.none? %> data-url="<%= sort_questionnaire_questions_path @questionnaire %>" class="border rounded mb-3 p-3 border-<%= @questionnaire.responses.none? ? 'success' : 'danger' %>">
       <% @questionnaire.questions.each_with_index do |questn, i| %>
-        <div class="col-9">
-          <h4>Question <%= i + 1 %>.</h4>
-          <p><%= questn.blurb %></p>
-          <% if questn.answer_type.downcase.start_with? 'multiple_choice' %>
-          <p><strong>Choices: </strong><%= questn.choices.join(' &bull; ').html_safe %></p>
-          <% end %>
-          <p class="small">
-            <%= link_to('Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'}) unless @questionnaire.responses.count > 0 %>
-          </p>
-        </div>
-        <div class="col-3">
-          <p><strong>Type:</strong> <%= questn.answer_type.humanize %></p>
+        <div class="row" id="<%= dom_id(questn) %>">
+          <div class="col-9">
+            <h5>Question.</h5>
+            <p><%= questn.blurb %></p>
+            <% if questn.answer_type.downcase.start_with? 'multiple_choice' %>
+            <p><strong>Choices: </strong><%= questn.choices.join(' &bull; ').html_safe %></p>
+            <% end %>
+            <p class="small">
+              <%= link_to('Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'}) unless @questionnaire.responses.count > 0 %>
+            </p>
+          </div>
+          <div class="col-3">
+            <p><strong>Type:</strong> <%= questn.answer_type.humanize %></p>
+          </div>
         </div>
       <% end %>
     </div>

@@ -12,9 +12,9 @@ require("trix")
 require("@rails/actiontext")
 require("channels")
 require("jquery")
+require("jquery-ui/ui/widgets/sortable")
 // require("popper")
-// require("bootstrap")
-import 'bootstrap'
+require("bootstrap")
 import '../trix-editor-overrides'
 import '../question'
 

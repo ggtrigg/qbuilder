@@ -31,6 +31,14 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def sort
+    params[:question].each_with_index do |id, index|
+      Question.where(id: id).update_all(position: index + 1)
+    end
+
+    head :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
