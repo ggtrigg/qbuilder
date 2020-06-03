@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root 'questionnaires#index'
   resources :questionnaires do
-    resources :questions
+    resources :questions do
+      collection do
+        patch :sort
+      end
+    end
     resources :responses, except: [:edit, :update]
   end
   get 'thankyou', to: 'questionnaires#thankyou'
