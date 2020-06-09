@@ -1,6 +1,6 @@
 class QuestionnairesController < ApplicationController
   before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: :thankyou
+  before_action :authenticate_user!, except: [:thankyou, :landing]
 
   # GET /questionnaires
   # GET /questionnaires.json
@@ -63,6 +63,10 @@ class QuestionnairesController < ApplicationController
   end
 
   def thankyou
+  end
+
+  def landing
+    redirect_to questionnaires_path if user_signed_in?
   end
 
   private

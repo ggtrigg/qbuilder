@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'questionnaires#index'
+  root 'questionnaires#landing'
   resources :questionnaires do
     resources :questions do
       collection do

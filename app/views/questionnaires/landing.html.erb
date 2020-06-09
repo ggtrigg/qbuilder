@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-sm-3 text-center">
+    <%= image_tag('qbuilder.png', class: 'img-fluid mb-2') %>
+    <%= link_to('Log in', new_user_session_path, class: 'btn btn-primary') %>
+    <%= link_to('Sign up', new_user_registration_path, class: 'btn btn-secondary') %>
+  </div>
+  <div class="col-sm-8">
+    <h1>Questionnaire builder</h1>
+    <h2>What is it?</h2>
+      <p>Qbuilder is a system that allows you to:</p>
+      <ul>
+      <li>Create,</li>
+      <li>store,</li>
+      <li>publish,</li>
+      <li>and collect responses to</li>
+      </ul>
+      <p>questionnaires.</p>
+      <p>Each questionnaire has it's own URL that you can send to the people you'd like to complete the questionnaire. Responses are
+      emailed to your email address when they're submitted, and are stored with the questionnaire so you can revisit all responses.</p>
+      <p>The personal details you'd like responders to provide can be customised for each questionnaire and these details are stored encrypted.</p>
+    <h2>How does it work?</h2>
+      <ol>
+      <li>First <%= link_to('sign up', new_user_registration_path) %>/<%= link_to('log in', new_user_session_path) %> using your email address. Your signed in home page will show a list of your questionnaires.</li>
+      <li>Use the <span class="btn btn-primary btn-sm">New Questionnaire</span> button to create a questionnaire. Give it a title and use the description area to provide any background information or other details
+      people responding to this questionnaire may need. The description area allows you to use rich text and include pictures.</li>
+      <li>Proceed to the next step where you add questions to the questionnaire. Each question has an anwer type specified which is one of:</li>
+        <ul>
+        <li>True / False</li>
+        <li>Yes / No</li>
+        <li>Single line text</li>
+        <li>Multi-line text</li>
+        <li>Multiple choice - select one</li>
+        <li>Multiple choice - select any</li>
+        </ul>
+        <li>If necessary questions can be deleted or reordered by dragging a question to a new position.</li>
+        <li>When all the questions have been added, provide the URL shown at the top of the questionnaire to the people you want to have access and respond to the questionnaire.</li>
+        <li>All responses will be emailed to your sign-up email address. The number of responses is shown on your questinonaires home page, and clicking on the responses number will
+        take you a list of responses for that questionnaire where they can viewed.</li>
+      </ol>
+    <h2>Enjoy!</h2>
+  </div>
+</div>
