@@ -54,7 +54,19 @@
     <% form.object.question.choices.each_with_index do |choice, index|%>
     <div class="custom-control custom-checkbox <%= 'custom-control-inline' if form.object.question.inlineable? %>">
       <%= form.check_box :choice, {multiple: true, class: 'custom-control-input'}, index, nil %>
-      <%= form.label "choice_#{index}", choice, {class: 'custom-control-label'} %>
+      <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
+    </div>
+    <% end %>
+  </div>
+<% when :score %>
+  <div class="mb-2">
+    <div>
+      <%= form.object.question.blurb %>
+    </div>
+    <% (0..10).each do |index|%>
+    <div class="custom-control custom-radio custom-control-inline">
+      <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
+      <%= form.label "choice_#{index}".to_sym, index, {class: 'custom-control-label'} %>
     </div>
     <% end %>
   </div>

@@ -34,6 +34,8 @@
           <% else %>
             (No choices selected)
           <% end %>
+        <% when :score %>
+          <%= answer.choice.to_i %>
       <% end %></p>
     <% end %>
   </body>

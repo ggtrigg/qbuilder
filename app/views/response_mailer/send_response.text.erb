@@ -27,5 +27,7 @@ Response from <%= @response.name %>
       <% else %>
         (No choices selected)
       <% end %>
+    <% when :score %>
+      <%= answer.choice.to_i %>
   <% end %>
 <% end %>
