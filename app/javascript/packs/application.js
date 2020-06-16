@@ -15,6 +15,7 @@ require("jquery")
 require("jquery-ui/ui/widgets/sortable")
 // require("popper")
 require("bootstrap")
+require('ion-rangeslider/js/ion.rangeSlider')
 import '../trix-editor-overrides'
 import '../question'
 

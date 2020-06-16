@@ -45,7 +45,9 @@
             </p>
           </div>
           <div class="col-3">
-            <p><strong>Type:</strong> <%= questn.answer_type.humanize %></p>
+            <p><strong>Type:</strong> <%= questn.answer_type.humanize %>
+            <%= questn.choices[0].gsub(/;/, ' to ') if questn.answer_type == 'score' %>
+            </p>
           </div>
         </div>
       <% end %>

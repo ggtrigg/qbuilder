@@ -6,8 +6,14 @@ $(function(){
       } else {
         $('#choices-group').addClass('d-none');
       }
+      if($( this ).text().toLowerCase() == 'score') {
+        $('#slider-group').removeClass('d-none');
+      } else {
+        $('#slider-group').addClass('d-none');
+      }
     });
   });
+  $(".js-range-slider").ionRangeSlider({skin: "round"});
 });
 
 document.addEventListener("turbolinks:load", function() {
