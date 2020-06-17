@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_010628) do
+ActiveRecord::Schema.define(version: 2020_06_17_010542) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_010628) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "choices"
     t.integer "position"
+    t.string "score_range"
     t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
   end
 

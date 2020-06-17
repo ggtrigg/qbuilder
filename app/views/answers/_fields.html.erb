@@ -63,7 +63,7 @@
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% Range.new(*(form.object.question.choices[0].split(';')[0,2])).each do |index|%>
+    <% form.object.question.score_range.each do |index|%>
     <div class="custom-control custom-radio custom-control-inline">
       <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
       <%= form.label "choice_#{index}".to_sym, index, {class: 'custom-control-label'} %>
