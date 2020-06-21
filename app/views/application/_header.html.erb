@@ -1,7 +1,8 @@
-<nav class="nav bg-light px-4">
-  <%= link_to(root_path) do %>
-    <%= fa_icon 'home' %>
+<nav class="nav nav-fill bg-light px-4">
+  <%= link_to(root_path, class: 'nav-item') do %>
+    <%= fa_icon 'home 2x' %>
   <% end %>
-  <span class="mx-auto text-success">Logged in as <%= current_user.email %></span>
-  <%= link_to('Log out'.html_safe, destroy_user_session_path, method: 'delete') %>
+  <span class="text-success nav-item">Logged in as <%= current_user.email %></span>
+  <%= link_to('Admin '.html_safe, users_path, class: 'nav-item') if current_user.try(:admin?) %>
+  <%= link_to('Log out'.html_safe, destroy_user_session_path, method: 'delete', class: 'nav-item') %>
 </nav>
