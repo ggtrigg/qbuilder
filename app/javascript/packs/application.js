@@ -16,6 +16,8 @@ require("jquery-ui/ui/widgets/sortable")
 // require("popper")
 require("bootstrap")
 require('ion-rangeslider/js/ion.rangeSlider')
+import "@fortawesome/fontawesome-free/js/all";
+import "../stylesheets/application";
 import '../trix-editor-overrides'
 import '../question'
 
