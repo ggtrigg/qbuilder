@@ -35,7 +35,7 @@
       <% @questionnaire.questions.each_with_index do |questn, i| %>
         <div class="row" id="<%= dom_id(questn) %>">
           <div class="col-9">
-            <h5>Question <span class="q-index"><%= i %></span>.</h5>
+            <h5>Question <span class="q-index"><%= i + 1 %></span>.</h5>
             <p><%= questn.blurb %></p>
             <% if questn.answer_type.downcase.start_with? 'multiple_choice' %>
             <p><strong>Choices: </strong><%= questn.choices.join(' &bull; ').html_safe %></p>
