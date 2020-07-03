@@ -57,7 +57,7 @@ class QuestionnairesController < ApplicationController
   def destroy
     @questionnaire.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully destroyed.' }
+      format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully deleted.' }
       format.json { head :no_content }
     end
   end

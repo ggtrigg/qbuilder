@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
       if @question.save
         format.html { redirect_to @questionnaire, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @questionnaire }
+        format.js { flash.now[:notice] = 'Question was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
@@ -26,8 +27,9 @@ class QuestionsController < ApplicationController
     @questionnaire = @question.questionnaire
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaire_url(@questionnaire), notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to questionnaire_url(@questionnaire), notice: 'Question was successfully deleted.' }
       format.json { head :no_content }
+      format.js  { flash.now[:notice] = 'Question was successfully deleted.' }
     end
   end
 

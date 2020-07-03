@@ -28,4 +28,7 @@ document.addEventListener("turbolinks:load", function() {
       $(".q-index").each(function(index){ $(this).text(index + 1)});
     }
   });
+  $(".modal-submit").click(function(){
+    Rails.fire($(this).closest(".modal-footer").prev(".modal-body").children("form")[0], 'submit');
+  });
 });

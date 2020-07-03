@@ -32,25 +32,7 @@
       </div>
     </div>
     <div <%= 'id=questions' if @questionnaire.responses.none? %> data-url="<%= sort_questionnaire_questions_path @questionnaire %>" class="border rounded mb-3 p-3 border-<%= @questionnaire.responses.none? ? 'success' : 'danger' %>">
-      <% @questionnaire.questions.each_with_index do |questn, i| %>
-        <div class="row" id="<%= dom_id(questn) %>">
-          <div class="col-9">
-            <h5>Question <span class="q-index"><%= i + 1 %></span>.</h5>
-            <p><%= questn.blurb %></p>
-            <% if questn.answer_type.downcase.start_with? 'multiple_choice' %>
-            <p><strong>Choices: </strong><%= questn.choices.join(' &bull; ').html_safe %></p>
-            <% end %>
-            <p class="small">
-              <%= link_to('Delete', questionnaire_question_path(@questionnaire, questn), method: :delete, data: {confirm: 'Really delete this question?'}) unless @questionnaire.responses.count > 0 %>
-            </p>
-          </div>
-          <div class="col-3">
-            <p><strong>Type:</strong> <%= questn.answer_type.humanize %>
-            <%= score_range_s(questn) if questn.answer_type == 'score' %>
-            </p>
-          </div>
-        </div>
-      <% end %>
+      <%= render @questionnaire.questions %>
     </div>
   
     
@@ -63,7 +45,6 @@
 <div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <%= form_for(@questionnaire.questions.new, url: questionnaire_questions_path(@questionnaire)) do |form| %>
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalCenterTitle">Add Question</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -71,13 +52,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= render 'questions/fields', form: form %>
+        <%= form_for(@questionnaire.questions.new, url: questionnaire_questions_path(@questionnaire), remote: true) do |form| %>
+          <%= render 'questions/fields', form: form %>
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= form.submit 'Save Question', class: 'btn btn-primary' %>
+        <button type="button" class="btn btn-primary modal-submit" data-dismiss="modal">Save Question</button>
       </div>
-      <% end %>
     </div>
   </div>
 </div>

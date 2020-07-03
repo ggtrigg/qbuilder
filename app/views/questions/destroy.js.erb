@@ -1,0 +1,3 @@
+$("div#<%= escape_javascript(dom_id(@question)) %>").remove();
+$(".q-index").each(function(index){ $(this).text(index + 1)});
+$('.flash-wrapper').html("<%= escape_javascript(render 'layouts/messages') %>");
