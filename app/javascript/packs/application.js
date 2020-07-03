@@ -12,6 +12,8 @@ require("trix")
 require("@rails/actiontext")
 require("channels")
 require("jquery")
+import $ from 'jquery';
+global.$ = jQuery;
 require("jquery-ui/ui/widgets/sortable")
 // require("popper")
 require("bootstrap")

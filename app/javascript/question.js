@@ -25,6 +25,7 @@ document.addEventListener("turbolinks:load", function() {
         type: "PATCH",
         data: $(this).sortable('serialize'),
       });
+      $(".q-index").each(function(index){ $(this).text(index + 1)});
     }
   });
 });
