@@ -1,15 +1,17 @@
 <div class="row" id="<%= dom_id(question) %>">
-  <div class="col-9">
+  <div class="col-9 mt-3">
     <h5>Question <span class="q-index"><%= question.position %></span>.</h5>
-    <p><%= question.blurb %></p>
+    <div><%= question.blurb %></div>
     <% if question.answer_type.downcase.start_with? 'multiple_choice' %>
-    <p><strong>Choices: </strong><%= question.choices.join(' &bull; ').html_safe %></p>
+    <div><strong>Choices: </strong><%= question.choices.join(' &bull; ').html_safe %></div>
     <% end %>
   </div>
   <div class="col-3">
-    <p><strong>Type:</strong> <%= question.answer_type.humanize %>
-    <%= score_range_s(question) if question.answer_type == 'score' %>
-    </p>
+    <div>
+      <strong>Type:</strong> <%= question.answer_type.humanize %>
+      <%= score_range_s(question) if question.answer_type == 'score' %>
+    </div>
+  
     <%= link_to('Edit', edit_questionnaire_question_path(@questionnaire, question), remote: true, class: 'btn btn-primary btn-sm') unless @questionnaire.responses.count > 0 %>
     <%= link_to('Delete', questionnaire_question_path(@questionnaire, question), method: :delete,
       data: {confirm: 'Really delete this question?'}, remote: true, class: 'btn btn-danger btn-sm') unless @questionnaire.responses.count > 0 %>

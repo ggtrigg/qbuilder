@@ -5,7 +5,13 @@ class QuestionsController < ApplicationController
 
   def new
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    last = @questionnaire.questions.last
     @question = @questionnaire.questions.new()
+
+    if last.present?
+      @question.answer_type = last.answer_type
+      @question.score_range = last.score_range
+    end
   
     render :js, template: 'questions/question'
   end
