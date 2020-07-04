@@ -5,13 +5,13 @@
     <% if question.answer_type.downcase.start_with? 'multiple_choice' %>
     <p><strong>Choices: </strong><%= question.choices.join(' &bull; ').html_safe %></p>
     <% end %>
-    <p class="small">
-      <%= link_to('Delete', questionnaire_question_path(@questionnaire, question), method: :delete, data: {confirm: 'Really delete this question?'}, remote: true) unless @questionnaire.responses.count > 0 %>
-    </p>
   </div>
   <div class="col-3">
     <p><strong>Type:</strong> <%= question.answer_type.humanize %>
     <%= score_range_s(question) if question.answer_type == 'score' %>
     </p>
+    <%= link_to('Edit', edit_questionnaire_question_path(@questionnaire, question), remote: true, class: 'btn btn-primary btn-sm') unless @questionnaire.responses.count > 0 %>
+    <%= link_to('Delete', questionnaire_question_path(@questionnaire, question), method: :delete,
+      data: {confirm: 'Really delete this question?'}, remote: true, class: 'btn btn-danger btn-sm') unless @questionnaire.responses.count > 0 %>
   </div>
 </div>

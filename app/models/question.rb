@@ -11,7 +11,11 @@ class Question < ApplicationRecord
   end
 
   def score_range
-    read_attribute(:score_range).present? ? Range.new(*(read_attribute(:score_range).split(';')[0,2])) : 1..10
+    if read_attribute(:score_range).present? && read_attribute(:score_range) =~ /\A(\d+)(;|\.\.|-)(\d+)\Z/
+      Range.new($1, $3)
+    else
+      1..10
+    end
   end
 
   def inlineable?

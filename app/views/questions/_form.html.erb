@@ -1,0 +1,3 @@
+<%= form_for(@question, url: action_url(@question), remote: true) do |form| %>
+  <%= render 'questions/fields', form: form %>
+<% end %>

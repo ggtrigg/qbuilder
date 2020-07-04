@@ -3,6 +3,13 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy]
 
+  def new
+    @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    @question = @questionnaire.questions.new()
+  
+    render :js, template: 'questions/question'
+  end
+
   # POST /questions
   # POST /questions.json
   def create
@@ -20,6 +27,30 @@ class QuestionsController < ApplicationController
       end
     end
   end
+
+  def edit
+    @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    @question = @questionnaire.questions.find(params[:id])
+  
+    render :js, template: 'questions/question'
+  end
+
+  def update
+    @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    @question = @questionnaire.questions.find(params[:id])
+
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to @questionnaire, notice: 'Question was successfully updated.' }
+        format.json { render :show, status: :created, location: @questionnaire }
+        format.js { flash.now[:notice] = 'Question was successfully updated.' }
+      else
+        format.html { render :new }
+        format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # DELETE /questions/1
   # DELETE /questions/1.json
