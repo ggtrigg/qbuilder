@@ -6,6 +6,12 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def become
+    return unless current_user.admin?
+    bypass_sign_in(User.find(params[:id]))
+    redirect_to root_url # or user_root_url
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
