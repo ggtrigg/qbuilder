@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     end
     resources :responses, except: [:edit, :update]
   end
+  get 'thankyou/(:id)', to: 'questionnaires#thankyou', as: :thankyou
   get '/(:questionnaire_id)', to: 'responses#new', as: :new_response
-  get 'thankyou', to: 'questionnaires#thankyou'
   scope "/admin" do
     resources :users, only: [:index, :destroy]
     get 'become/(:id)', to: 'users#become', as: :become_user

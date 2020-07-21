@@ -5,6 +5,7 @@ class Questionnaire < ApplicationRecord
   has_many :responses, dependent: :destroy
   has_many :questions, -> { order(position: :asc) }, dependent: :destroy
   has_rich_text :description
+  has_rich_text :submit_message
 
   accepts_nested_attributes_for :questions, allow_destroy: true
 

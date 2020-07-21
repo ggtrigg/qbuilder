@@ -18,6 +18,11 @@
     <%= form.label :description %>
     <%= form.rich_text_area :description %>
   </div>
+  <div class="form-group">
+    <%= form.label :submit_message %>
+    <%= form.rich_text_area :submit_message %>
+    <small id="submitMsgHelp" class="form-text text-muted">What each responder will see after they've submitted their response.</small>
+  </div>
   <p>Which of the following recipient details do you require?</p>
   <div class="custom-control custom-checkbox custom-control-inline">
     <input type="checkbox" class="custom-control-input" id="nameCheck1" checked disabled>

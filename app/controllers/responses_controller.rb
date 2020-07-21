@@ -31,11 +31,11 @@ class ResponsesController < ApplicationController
     respond_to do |format|
       if @response.save
         if user_signed_in? && (@questionnaire.user == current_user)
-          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response. (You responded to your own questoinnaire!)' }
+          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response. (You responded to your own questionnaire!)' }
           format.json { render :show, status: :created, location: @response }
         else
           ResponseMailer.with(response: @response).send_response.deliver_now
-          format.html { redirect_to thankyou_path }
+          format.html { redirect_to thankyou_path(@questionnaire) }
         end
       else
         format.html { render :new }

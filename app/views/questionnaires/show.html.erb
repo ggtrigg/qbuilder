@@ -20,11 +20,23 @@
       <p>Once someone has completed a response you can no longer edit this questionnaire.</p>
     <% end %>
     <% if @questionnaire.description.present? %>
-      <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#description" role="button" aria-expanded="false" aria-controls="description">
-        Description
-      </a>
+      <div class="my-2">
+        <a class="btn btn-primary btn-sm d-inline-block" data-toggle="collapse" href="#description" role="button" aria-expanded="false" aria-controls="description">
+          Description
+        </a>
+      </div>
       <div class="collapse border rounded p-3 my-2" id="description">
         <%= @questionnaire.description %>
+      </div>
+    <% end %>
+    <% if @questionnaire.submit_message.present? %>
+      <div class=my-2>
+        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#submit_msg" role="button" aria-expanded="false" aria-controls="description">
+          Submit Message
+        </a>
+      </div>
+      <div class="collapse border rounded p-3 my-2" id="submit_msg">
+        <%= @questionnaire.submit_message %>
       </div>
     <% end %>
     

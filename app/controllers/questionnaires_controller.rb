@@ -1,5 +1,5 @@
 class QuestionnairesController < ApplicationController
-  before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
+  before_action :set_questionnaire, only: [:show, :edit, :update, :destroy, :thankyou]
   before_action :authenticate_user!, except: [:thankyou, :landing]
 
   # GET /questionnaires
@@ -72,12 +72,17 @@ class QuestionnairesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_questionnaire
-      @questionnaire = Questionnaire.find(params[:id])
+      begin
+        @questionnaire = Questionnaire.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        @questionnaire = Questionnaire.new
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def questionnaire_params
-      params.require(:questionnaire).permit(:title, :description, :user_id, *Questionnaire::R_ATTRIBUTES.map {|r| r.to_sym},
+      params.require(:questionnaire).permit(:title, :description, :submit_message,
+        :user_id, *Questionnaire::R_ATTRIBUTES.map {|r| r.to_sym},
         questions_attributes: [:blurb, :answer_type, :choices, :score_range])
     end
 end

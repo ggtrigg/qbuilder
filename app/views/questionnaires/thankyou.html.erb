@@ -1,7 +1,11 @@
 <div class="row">
   <div class="col-sm-8 offset-sm-2">
+    <% if @questionnaire && @questionnaire.submit_message.present? %>
+    <%= @questionnaire.submit_message %>
+    <% else %>
     <h1>Thank you</h1>
     <p>Thank you for taking the time to complete the questionnaire. Your response has been collected.</p>
     <p>You details will be kept in strictest confidence and not shared to any external parties.</p>
+    <% end %>
   </div>
 </div>
