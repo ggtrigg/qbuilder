@@ -39,6 +39,11 @@
         <%= @questionnaire.submit_message %>
       </div>
     <% end %>
+    <% if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present? %>
+    <div class="bg-dark text-white p-2">
+      The "Thank you" page will redirect to <strong><%= @questionnaire.redirect_url %></strong> after <%= @questionnaire.redirect_delay_secs %> seconds.
+    </div>
+    <% end %>
     
     <div class="row my-2">
       <div class="col-12">
