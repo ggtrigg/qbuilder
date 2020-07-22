@@ -63,7 +63,6 @@ class QuestionnairesController < ApplicationController
   end
 
   def thankyou
-    byebug
     if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present?
       @do_redirect = true
     end
