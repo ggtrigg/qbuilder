@@ -17,7 +17,11 @@
         <% @users.each do |user| %>
           <tr>
             <td><%= link_to user.email, become_user_path(user) %></td>
-            <td class="h4"><span class="badge badge-pill badge-primary"><%= user.questionnaires.count %></span></td>
+            <td class="h4">
+              <%= link_to(questionnaires_uid_path(user)) do %>
+              <span class="badge badge-pill badge-primary"><%= user.questionnaires.count %></span>
+              <% end %>
+            </td>
             <td><%= fa_icon fa_boolean_name(user.admin?) %></td>
             <td><%= fa_icon fa_boolean_name(user.confirmed?) %></td>
             <td><%= link_to(user, method: :delete, data: { confirm: 'Are you sure?' }) do %>

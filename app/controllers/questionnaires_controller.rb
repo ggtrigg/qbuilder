@@ -8,6 +8,13 @@ class QuestionnairesController < ApplicationController
     @questionnaires = current_user.questionnaires.all
   end
 
+  def index_other
+    return unless current_user.admin?
+    user = User.find(params[:uid])
+    @questionnaires = user.questionnaires.all
+    render :index
+  end
+
   # GET /questionnaires/1
   # GET /questionnaires/1.json
   def show

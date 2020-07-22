@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     resources :responses, except: [:edit, :update]
   end
+  get '/questionnaires/other/(:uid)', to: 'questionnaires#index_other', as: :questionnaires_uid
   get 'thankyou/(:id)', to: 'questionnaires#thankyou', as: :thankyou
   get '/(:questionnaire_id)', to: 'responses#new', as: :new_response
   scope "/admin" do
