@@ -63,6 +63,10 @@ class QuestionnairesController < ApplicationController
   end
 
   def thankyou
+    byebug
+    if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present?
+      @do_redirect = true
+    end
   end
 
   def landing
@@ -81,7 +85,7 @@ class QuestionnairesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def questionnaire_params
-      params.require(:questionnaire).permit(:title, :description, :submit_message,
+      params.require(:questionnaire).permit(:title, :description, :submit_message, :redirect_url, :redirect_delay_secs,
         :user_id, *Questionnaire::R_ATTRIBUTES.map {|r| r.to_sym},
         questions_attributes: [:blurb, :answer_type, :choices, :score_range])
     end

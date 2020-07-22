@@ -17,11 +17,22 @@
   <div class="form-group">
     <%= form.label :description %>
     <%= form.rich_text_area :description %>
+    <small id="descriptionHelp" class="form-text text-muted">Describe what your questionnaire is about.</small>
   </div>
   <div class="form-group">
     <%= form.label :submit_message %>
     <%= form.rich_text_area :submit_message %>
     <small id="submitMsgHelp" class="form-text text-muted">What each responder will see after they've submitted their response.</small>
+  </div>
+  <div class="form-group">
+    <%= form.label :redirect_url %>
+    <%= form.url_field :redirect_url, class: 'form-control' %>
+    <small id="redirectUrlHelp" class="form-text text-muted">If set, the "Thank You" page displayed after a response is submitted will redirect to this URL.</small>
+  </div>
+  <div class="form-group">
+    <%= form.label :redirect_delay_secs %>
+    <%= form.number_field :redirect_delay_secs, class: 'form-control', in: 5..30 %>
+    <small id="redirectDelayHelp" class="form-text text-muted">How many seconds to wait before redirecting.</small>
   </div>
   <p>Which of the following recipient details do you require?</p>
   <div class="custom-control custom-checkbox custom-control-inline">

@@ -12,6 +12,11 @@ class Questionnaire < ApplicationRecord
   include Hashid::Rails
 
   validates :title, presence: true
+  validates :redirect_url, url: { allow_blank: true }
 
   R_ATTRIBUTES = %w(r_address r_email r_phone r_age r_sex)
+
+  def redirect_delay_secs
+    read_attribute(:redirect_delay_secs) || 15
+  end
 end

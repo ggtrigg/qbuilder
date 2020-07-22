@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_010542) do
+ActiveRecord::Schema.define(version: 2020_07_21_225627) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 2020_06_17_010542) do
     t.boolean "r_phone"
     t.boolean "r_age"
     t.boolean "r_sex"
+    t.string "redirect_url"
+    t.integer "redirect_delay_secs"
     t.index ["user_id"], name: "index_questionnaires_on_user_id"
   end
 
