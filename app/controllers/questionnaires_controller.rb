@@ -1,6 +1,7 @@
 class QuestionnairesController < ApplicationController
-  before_action :set_questionnaire, only: [:show, :edit, :update, :destroy, :thankyou]
   before_action :authenticate_user!, except: [:thankyou, :landing]
+  append_before_action :set_questionnaire, only: [:show, :edit, :update, :destroy, :thankyou]
+  append_before_action :check_user, only: [:show, :edit, :update, :destroy]
 
   # GET /questionnaires
   # GET /questionnaires.json
@@ -86,6 +87,13 @@ class QuestionnairesController < ApplicationController
         @questionnaire = Questionnaire.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @questionnaire = Questionnaire.new
+      end
+    end
+
+    # Ensure each user (except admin users) can only access their own questionnaires.
+    def check_user
+      unless @questionnaire.user == current_user or current_user.admin?
+        redirect_to questionnaires_path, alert: 'Questionnaire not available.'
       end
     end
 
