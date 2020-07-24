@@ -4,11 +4,6 @@
       <%= @questionnaire.title %>
     </h1>
   </div>
-  <% if @questionnaire.responses.none? %>
-    <div class="col-auto text-right">
-      <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary btn-sm', role: 'button' %>
-    </div>
-  <% end %>
   <div class="w-100"></div>
   <div class="col-sm-1">
     <%= link_to 'Back', questionnaires_path, class: 'btn btn-secondary', role: 'button' %>
@@ -17,44 +12,58 @@
     <p class="text-muted">Send this link to the people you wish to complete this questionnaire: 
     <%= link_to nil, new_response_url(@questionnaire) %></p>
     <% unless @questionnaire.responses.none? %>
-      <p>Once someone has completed a response you can no longer edit this questionnaire.</p>
+      <p>Once someone has completed a response you can no longer edit this questionnaire. <%= link_to 'See responses', questionnaire_responses_path(@questionnaire), class: 'btn btn-primary btn-sm' %></p>
     <% end %>
-    <% if @questionnaire.description.present? %>
-      <div class="my-2">
-        <a class="btn btn-primary btn-sm d-inline-block" data-toggle="collapse" href="#description" role="button" aria-expanded="false" aria-controls="description">
-          Description
-        </a>
-      </div>
-      <div class="collapse border rounded p-3 my-2" id="description">
-        <%= @questionnaire.description %>
-      </div>
-    <% end %>
-    <% if @questionnaire.submit_message.present? %>
-      <div class=my-2>
-        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#submit_msg" role="button" aria-expanded="false" aria-controls="description">
-          Submit Message
-        </a>
-      </div>
-      <div class="collapse border rounded p-3 my-2" id="submit_msg">
-        <%= @questionnaire.submit_message %>
-      </div>
-    <% end %>
-    <% if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present? %>
-    <div class="bg-dark text-white p-2">
-      The "Thank you" page will redirect to <strong><%= @questionnaire.redirect_url %></strong> after <%= @questionnaire.redirect_delay_secs %> seconds.
+    <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action <%= 'active' unless flash.key?('show_questions') %>" id="q_details-list" data-toggle="list" href="#q-details" role="tab" aria-controls="details">Details</a>
+      <a class="list-group-item list-group-item-action <%= 'active' if flash.key?('show_questions') %>" id="q-questions-list" data-toggle="list" href="#q-questions" role="tab" aria-controls="questions">Questions</a>
     </div>
-    <% end %>
-    
-    <div class="row my-2">
-      <div class="col-12">
-        <!-- Button trigger modal -->
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade <%= 'show active' unless flash.key?('show_questions') %>" id="q-details" role="tabpanel" aria-labelledby="q-details-list">
         <% if @questionnaire.responses.none? %>
-        <%= link_to 'Add Question', new_questionnaire_question_path(@questionnaire), remote: true, class: 'btn btn-primary btn-sm' %>
+          
+          <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary btn-sm mt-2', role: 'button' %>
+        
+        <% end %>
+        <% if @questionnaire.description.present? %>
+          <div class="card my-2">
+            <div class="card-header text-light bg-dark">
+              Questionnaire description
+            </div>
+            <div class="card-body">
+              <div class="card-text">
+                <%= @questionnaire.description %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @questionnaire.submit_message.present? %>
+          <div class="card my-2">
+            <div class="card-header text-light bg-dark">
+              Submit message
+            </div>
+            <div class="card-body">
+              <div class="card-text">
+                <%= @questionnaire.submit_message %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present? %>
+          <div class="bg-dark text-white p-2">
+            The "Thank you" page will redirect to <strong><%= @questionnaire.redirect_url %></strong> after <%= @questionnaire.redirect_delay_secs %> seconds.
+          </div>
         <% end %>
       </div>
-    </div>
-    <div <%= 'id=questions' if @questionnaire.responses.none? %> data-url="<%= sort_questionnaire_questions_path @questionnaire %>" class="border rounded mb-3 p-3 border-<%= @questionnaire.responses.none? ? 'success' : 'danger' %>">
-      <%= render @questionnaire.questions %>
+      <div class="tab-pane fade <%= 'show active' if flash.key?('show_questions') %>" id="q-questions" role="tabpanel" aria-labelledby="q-questions-list">
+        <!-- Button trigger modal -->
+        <% if @questionnaire.responses.none? %>
+        <%= link_to 'Add Question', new_questionnaire_question_path(@questionnaire), remote: true, class: 'btn btn-primary btn-sm mt-2' %>
+        <% end %>
+        <div <%= 'id=questions' if @questionnaire.responses.none? %> data-url="<%= sort_questionnaire_questions_path @questionnaire %>" class="border rounded my-2 p-3 border-<%= @questionnaire.responses.none? ? 'success' : 'danger' %>">
+          <%= render @questionnaire.questions %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
