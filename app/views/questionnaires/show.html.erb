@@ -49,6 +49,7 @@
             </div>
           </div>
         <% end %>
+        <span class="h6">Responder attributes collected:</span> <%= @questionnaire.r_attributes.map {|a| '<span class="badge badge-primary">' + a.humanize + '</span>'}.join(' ').html_safe %>
         <% if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present? %>
           <div class="bg-dark text-white p-2">
             The "Thank you" page will redirect to <strong><%= @questionnaire.redirect_url %></strong> after <%= @questionnaire.redirect_delay_secs %> seconds.

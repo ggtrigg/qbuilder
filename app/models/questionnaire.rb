@@ -19,4 +19,8 @@ class Questionnaire < ApplicationRecord
   def redirect_delay_secs
     read_attribute(:redirect_delay_secs) || 15
   end
+
+  def r_attributes
+    attributes.slice(*R_ATTRIBUTES).select {|k, v| v.present?}.keys.map {|v| v.delete_prefix 'r_'}.prepend 'name'
+  end
 end
