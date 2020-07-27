@@ -1,30 +1,19 @@
 <div class="row">
-  <div class="col">
+  <div class="col offset-sm-1">
     <h1>Questionnaire responses</h1>
-    <h2>For: <%= @questionnaire.title %></h2>
-    
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
-    
-      <tbody>
-        <% @responses.each do |response| %>
-          <tr>
-            <td><%= link_to response.name, questionnaire_response_path(@questionnaire, response), class: 'text-reset' %></td>
-            <td><%= link_to questionnaire_response_path(@questionnaire, response) do %>
-              <%= fa_icon 'eye' %>
-            <% end %></td>
-            <td><%= link_to(questionnaire_response_path(@questionnaire, response), method: :delete, data: { confirm: 'Are you sure?' }) do %>
-              <%= fa_icon 'trash' %>
-            <% end %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= link_to 'Back', questionnaires_path, class: 'btn btn-secondary' %>
+  </div>
+  <div class="w-100"></div>
+  <div class="col-sm-1 d-print-none">
+    <%= link_to 'Back', questionnaire_path(@questionnaire), class: 'btn btn-secondary' %>
+  </div>
+  <div class="col">
+    <h2><%= @questionnaire.title %></h2>
+    <ul class="list-group">
+      <% @responses.each do |response| %>
+        <li class="list-group-item list-group-item-action list-group-item-info d-flex zjustify-content-between align-items-center">
+          <%= link_to [response.name, response.phone, response.email].join(' &bull; ').html_safe, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
