@@ -63,7 +63,7 @@ class ResponsesController < ApplicationController
 
     def set_questionnaire
       @questionnaire = Questionnaire.find(params[:questionnaire_id])
-      unless (action_name == 'new') or (@questionnaire.user == current_user) or current_user.admin?
+      unless (['new', 'create'].index action_name) or (@questionnaire.user == current_user) or current_user.admin?
         redirect_to questionnaires_path, alert: 'Questionnaire not available.'
       end
   end

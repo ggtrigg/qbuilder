@@ -11,7 +11,7 @@
     <ul class="list-group">
       <% @responses.each do |response| %>
         <li class="list-group-item list-group-item-action list-group-item-info d-flex zjustify-content-between align-items-center">
-          <%= link_to [response.name, response.phone, response.email].join(' &bull; ').html_safe, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+          <%= link_to [response.name, response.phone, response.email].filter(&:present?).join(' &bull; ').html_safe, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
         </li>
       <% end %>
     </ul>

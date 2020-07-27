@@ -84,7 +84,7 @@ class QuestionnairesController < ApplicationController
     def set_questionnaire
       begin
         @questionnaire = Questionnaire.find(params[:id])
-        unless @questionnaire.user == current_user or current_user.admin?
+        unless (action_name == 'thankyou') or (@questionnaire.user == current_user) or current_user.admin?
           redirect_to questionnaires_path, alert: 'Questionnaire not available.'
         end
       rescue ActiveRecord::RecordNotFound
