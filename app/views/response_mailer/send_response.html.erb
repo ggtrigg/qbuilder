@@ -19,24 +19,7 @@
       <p><strong>Q<%= i + 1 %>.</strong>
       <%= answer.question.blurb %></p>
       <p><strong>A<%= i + 1 %>.</strong>
-      <% case answer.question.answer_type.to_sym %>
-        <% when :single_line, :multi_line %>
-          <%= answer.atext %>
-        <% when :yes_no %>
-          <%= answer.yes_no ? 'Yes' : 'No' %>
-        <% when :true_false %>
-          <%= answer.yes_no.to_s.humanize %>
-        <% when :multiple_choice_single %>
-          <%= answer.question.choices[answer.choice.to_i] %>
-        <% when :multiple_choice_any %>
-          <% if answer.choice.present? %>
-            <%= answer.question.choices.values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %>
-          <% else %>
-            (No choices selected)
-          <% end %>
-        <% when :score %>
-          <%= answer.choice.to_i %>
-      <% end %></p>
+      <%= answer.value(' &bull; ').html_safe %>
     <% end %>
   </body>
 </html>

@@ -9,6 +9,10 @@ class ResponsesController < ApplicationController
   # GET /responses.json
   def index
     @responses = @questionnaire.responses.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @responses.to_csv, filename: "responses-#{Date.today}.csv" }
+    end
   end
 
   # GET /responses/1
