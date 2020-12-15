@@ -1,5 +1,5 @@
 class ResponseMailer < ApplicationMailer
-  add_template_helper(ResponsesHelper)
+  helper ResponsesHelper
   
   def send_response
     @response = @params[:response]

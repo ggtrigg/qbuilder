@@ -19,7 +19,7 @@
       <p><strong>Q<%= i + 1 %>.</strong>
       <%= answer.question.blurb %></p>
       <p><strong>A<%= i + 1 %>.</strong>
-      <%= answer.value(' &bull; ').html_safe %>
+      <%= sanitize answer.value(' &bull; ').to_s %>
     <% end %>
   </body>
 </html>
