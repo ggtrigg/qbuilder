@@ -44,7 +44,7 @@
       <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
       <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
     </div>
-    <% end %>
+    <% end if form.object.question.choices.present? %>
   </div>
 <% when :multiple_choice_any %>
   <div class="mb-2">

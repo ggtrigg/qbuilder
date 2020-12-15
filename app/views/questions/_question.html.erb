@@ -3,7 +3,7 @@
     <h5>Question <span class="q-index"><%= question.position %></span>.</h5>
     <div><%= question.blurb %></div>
     <% if question.answer_type.downcase.start_with? 'multiple_choice' %>
-    <div><strong>Choices: </strong><%= question.choices.join(' &bull; ').html_safe %></div>
+    <div><strong>Choices: </strong><%= sanitize question.choices.join(' &bull; ') if question.choices.present? %></div>
     <% end %>
   </div>
   <div class="col-3">
