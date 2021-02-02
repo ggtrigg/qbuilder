@@ -3,6 +3,9 @@
     <h1 class="mt-3">
       <%= @questionnaire.title %>
     </h1>
+    <% if @questionnaire.user != current_user %>
+    <h5 class="text-muted"><%= @questionnaire.user.email %></h5>
+    <% end %>
   </div>
   <div class="w-100"></div>
   <div class="col-sm-1">

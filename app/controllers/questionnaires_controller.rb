@@ -5,7 +5,7 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires
   # GET /questionnaires.json
   def index
-    @questionnaires = current_user.questionnaires.all
+    @questionnaires = current_user.admin? ? Questionnaire.order(:user_id).all : current_user.questionnaires.all
   end
 
   def index_other
