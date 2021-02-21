@@ -1,2 +1,4 @@
-$("#questions").append("<%= escape_javascript(render @question) %>");
+<% unless @question.errors.present? %>
+  $("#questions").append("<%= escape_javascript(render @question) %>");
+<% end %>
 $('.flash-wrapper').html("<%= escape_javascript(render 'layouts/messages') %>");

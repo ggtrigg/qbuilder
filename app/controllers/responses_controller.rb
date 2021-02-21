@@ -30,7 +30,7 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    @response = @questionnaire.responses.build(response_params)
+    @response = @questionnaire.responses.build(response_params.reject {|k,v| v.empty?})
 
     respond_to do |format|
       if @response.save
@@ -55,6 +55,14 @@ class ResponsesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to questionnaire_responses_url(@questionnaire), notice: 'Response was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  include EmailAddressUtil
+
+  def verify_email
+    respond_to do |format|
+      format.json { render json: {verified: valid_address?(params[:email_address])}}
     end
   end
 

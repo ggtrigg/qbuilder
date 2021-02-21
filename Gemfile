@@ -30,7 +30,9 @@ gem 'json'
 gem "attr_encrypted", "~> 3.1.0"
 gem 'jquery-ui-rails'
 gem 'acts_as_list'
-gem "validate_url"
+gem 'validate_url'
+gem 'dnsruby'
+gem 'turbolinks_render'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'

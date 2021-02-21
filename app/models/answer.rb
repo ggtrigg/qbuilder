@@ -1,6 +1,10 @@
 class Answer < ApplicationRecord
   belongs_to :response
   belongs_to :question
+  
+  validates :atext, presence: {message: "can't be blank"}, if: -> { %w(single_line multi_line).include? question.answer_type }
+  validates :yes_no, presence: {message: "option isn't selected"}, if: -> { %w(yes_no true_false).include? question.answer_type }
+  validates :choice, presence: {message: 'not selected'}, if: -> { %w(multiple_choice_any multiple_choice_single score).include? question.answer_type }
 
   def value(multiple_choice_separator = ', ')
     case question.answer_type.to_sym

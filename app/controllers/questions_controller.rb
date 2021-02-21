@@ -29,7 +29,11 @@ class QuestionsController < ApplicationController
         format.js { flash.now[:notice] = 'Question was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+        format.js { flash.now[:alert] = @question.errors.map do |e|
+          [e.attribute == :blurb ? 'Question' : e.attribute.to_s.capitalize,
+          e.message].join(' ')
+        end.join(', ') }
       end
     end
   end
@@ -52,7 +56,11 @@ class QuestionsController < ApplicationController
         format.js { flash.now[:notice] = 'Question was successfully updated.' }
       else
         format.html { render :new }
-        format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+        format.js { flash.now[:alert] = @question.errors.map do |e|
+          [e.attribute == :blurb ? 'Question' : e.attribute.to_s.capitalize,
+          e.message].join(' ')
+        end.join(', ') }
       end
     end
   end

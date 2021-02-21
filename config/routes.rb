@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   get '/questionnaires/other/(:uid)', to: 'questionnaires#index_other', as: :questionnaires_uid
   get 'thankyou/(:id)', to: 'questionnaires#thankyou', as: :thankyou
+  get '/verify_email', action: :verify_email, controller: :responses, as: :verify_email
   get '/(:questionnaire_id)', to: 'responses#new', as: :new_response
   scope "/admin" do
     resources :users, only: [:index, :destroy]
