@@ -1,20 +1,32 @@
 <div class="row">
   <div class="col offset-sm-1">
-    <h1>Questionnaire responses</h1>
+    <h1 class="pt-5">Questionnaire responses</h1>
   </div>
   <div class="w-100"></div>
   <div class="col-sm-1 d-print-none">
     <%= link_to 'Back', questionnaire_path(@questionnaire), class: 'btn btn-secondary' %>
   </div>
-  <div class="col">
+  <div class="col-12">
     <h2><%= @questionnaire.title %></h2>
-    <small><%= link_to 'Download as csv', questionnaire_responses_path(@questionnaire, format: 'csv') %>
-    <ul class="list-group">
-      <% @responses.each do |response| %>
-        <li class="list-group-item list-group-item-action list-group-item-info d-flex zjustify-content-between align-items-center">
-          <%= link_to [response.name, response.phone, response.email].extract!(&:present?).join(' &bull; ').html_safe, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
-        </li>
-      <% end %>
-    </ul>
+    <small><%= link_to 'Download as csv', questionnaire_responses_path(@questionnaire, format: 'csv') %></small>
   </div>
+    
+  <% @responses.each do |response| %>
+      
+    <div class="col my-1 py-2 list-group-item-info">
+      <%= link_to response.name, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+    </div>
+    <% if response.phone.present? %>
+      <div class="col my-1 py-2 list-group-item-info d-none d-sm-block">
+        <%= link_to response.phone, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+      </div>
+    <% end %>
+    <% if response.email.present? %>
+      <div class="col my-1 py-2 list-group-item-info d-none d-sm-block">
+        <%= link_to response.email, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+      </div>
+    <% end %>
+    <div class="w-100"></div>
+  <% end %>
+      
 </div>
