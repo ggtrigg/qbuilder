@@ -3,7 +3,7 @@ document.addEventListener("turbolinks:load", function() {
     $(this).removeClass('is-valid').removeClass('is-invalid');
     if($(this).val()) {
       target = $(this)
-      $.getJSON( "/verify_email.json", {'email_address': $(this).val()}, function( data, status ) {
+      $.getJSON( $(this).attr('data-verify-email-url'), {'email_address': $(this).val()}, function( data, status ) {
         if(data.verified) {
           target.addClass('is-valid')
         } else {
