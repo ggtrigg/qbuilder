@@ -21,3 +21,14 @@
 div#footer {
   font-size: small;
 }
+
+a.list-group-item[role=tab] {
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+a.list-group-item[role=tab]:not(.active) {
+  background-color: lightsteelblue;
+}

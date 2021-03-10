@@ -18,6 +18,7 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1
   # GET /questionnaires/1.json
   def show
+    @response_count = @questionnaire.responses.count
   end
 
   # GET /questionnaires/new
