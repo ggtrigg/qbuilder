@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
   def create
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.new(question_params)
+    @response_count = @questionnaire.responses.count
 
     respond_to do |format|
       if @question.save
