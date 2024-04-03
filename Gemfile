@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'bootstrap', '~> 4.4', '>= 4.4.1'
+gem 'bootstrap', '~> 4', '>= 4.6'
 gem 'font_awesome5_rails'
 gem 'hashid-rails', '~> 1.4'
 gem 'devise'
@@ -47,12 +47,12 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.2'
+  gem 'web-console'
+  gem 'listen'
   gem 'pry-rails', :group => :development
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem 'spring-watcher-listen'
   gem 'rails_real_favicon'
 end
 

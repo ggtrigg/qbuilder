@@ -65,6 +65,13 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: "www.glenntrigg.net", only_path: true }
 
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {address: 'ironman.gatewaybbs.com.au',
+        port: Rails.application.credentials.smtp[:port],
+        user_name: Rails.application.credentials.smtp[:user_name],
+        password: Rails.application.credentials.smtp[:password]}
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
