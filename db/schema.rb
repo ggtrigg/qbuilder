@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_032901) do
+ActiveRecord::Schema.define(version: 2024_04_03_101304) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_032901) do
   end
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "blurb"
+    t.text "blurb"
     t.integer "answer_type"
     t.bigint "questionnaire_id", null: false
     t.datetime "created_at", precision: 6, null: false

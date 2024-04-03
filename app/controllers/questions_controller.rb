@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
       @question.answer_type = last.answer_type
       @question.score_range = last.score_range
     end
-  
+
     render :js, template: 'questions/question'
   end
 
@@ -42,13 +42,15 @@ class QuestionsController < ApplicationController
   def edit
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.find(params[:id])
-  
+    @response_count = @questionnaire.responses.count
+
     render :js, template: 'questions/question'
   end
 
   def update
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.find(params[:id])
+    @response_count = @questionnaire.responses.count
 
     respond_to do |format|
       if @question.update(question_params)
