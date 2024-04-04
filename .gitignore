@@ -37,5 +37,6 @@ yarn-debug.log*
 .yarn-integrity
 
 /config/credentials/development.key
+/config/credentials.yml.enc
 /config/credentials/test.key
 qbuilder_test.sqlite3*

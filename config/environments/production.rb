@@ -63,7 +63,10 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "qbuilder_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: "www.glenntrigg.net", only_path: true }
+  config.action_mailer.default_url_options = {
+    host: "www.glenntrigg.net",
+    protocol: "https"
+  }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
