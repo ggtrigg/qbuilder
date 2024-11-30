@@ -39,6 +39,9 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def edit
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.find(params[:id])

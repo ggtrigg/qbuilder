@@ -6,6 +6,7 @@ class Response < ApplicationRecord
   include Hashid::Rails
   include EmailAddressUtil
 
+  attribute :sexes, :string
   enum sexes: {male: 'Male', female: 'Female', other: 'Other'}
 
   validates :name, presence: true

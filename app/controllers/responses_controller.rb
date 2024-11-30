@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class ResponsesController < ApplicationController
-  before_action :set_response, only: %i[show edit update destroy]
+  before_action :set_response, only: %i[show destroy]
   before_action :set_questionnaire, only: %i[index new create show destroy]
-  before_action :authenticate_user!, only: %i[index show update destroy]
+  before_action :authenticate_user!, only: %i[index show destroy]
 
   # GET /responses
   # GET /responses.json
@@ -17,7 +17,8 @@ class ResponsesController < ApplicationController
 
   # GET /responses/1
   # GET /responses/1.json
-  def show; end
+  def show
+  end
 
   # GET /responses/new
   def new
