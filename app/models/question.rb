@@ -3,7 +3,7 @@ class Question < ApplicationRecord
   acts_as_list scope: :questionnaire
 
   attribute :answer_type, :integer
-  enum answer_type: [:true_false, :yes_no, :single_line, :multi_line, :multiple_choice_single, :multiple_choice_any, :score]
+  enum :answer_type, [:true_false, :yes_no, :single_line, :multi_line, :multiple_choice_single, :multiple_choice_any, :score]
 
   validates :blurb, presence: true
 

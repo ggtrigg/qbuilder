@@ -58,7 +58,7 @@
       <div class="form-group row mb-3">
         <%= form.label :sex, class: 'col-sm-2 col-form-label' %>
         <div class="col-sm-4">
-          <%= form.select :sex, Response.sexes.invert, options = {include_blank: true}, html_options = {class: 'form-select', required: true} %>
+          <%= form.select :sex, Response.sexes.keys.map {|k| [k.humanize, k] }, options = {include_blank: true}, html_options = {class: 'form-select', required: true} %>
         </div>
       </div>
     <% end %>

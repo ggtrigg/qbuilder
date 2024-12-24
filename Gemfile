@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # ruby '2.7.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 8.0'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use mysql as the database for Active Record
@@ -24,16 +24,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# gem 'bootstrap', '~> 4', '>= 4.6'
-gem 'font_awesome5_rails'
 gem 'hashid-rails', '~> 1.4'
 gem 'devise'
-gem 'json'
-gem 'jquery-ui-rails'
 gem 'acts_as_list'
 gem 'validate_url'
 gem 'dnsruby'
-# gem 'turbolinks_render'
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
@@ -43,6 +38,11 @@ gem "thruster", require: false
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12'
+
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
