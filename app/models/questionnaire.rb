@@ -23,4 +23,8 @@ class Questionnaire < ApplicationRecord
   def r_attributes
     attributes.slice(*R_ATTRIBUTES).select {|k, v| v.present?}.keys.map {|v| v.delete_prefix 'r_'}.prepend 'name'
   end
+
+  def editable?
+    responses.none?
+  end
 end

@@ -1,21 +1,22 @@
-<div>
-  <div class="form-group">
-    <%= form.label :blurb, 'Question' %>
-    <%= form.text_area :blurb, class: 'form-control', required: true %>
+<div data-controller="question-editor">
+  <div class="mb-3">
+    <%= form.label :blurb, 'Question text', class: 'form-label' %>
+    <%= form.text_area :blurb, class: 'form-control', rows: 5, required: true %>
   </div>
-  <div class="form-group <%= 'd-none' unless @question.answer_type && @question.answer_type.start_with?('multiple_choice') %>" id="choices-group">
-    <%= form.label :choices, 'Choices' %>
-    <%= form.text_area :choices, class: 'form-control', value: @question.read_attribute(:choices) %>
+  <div class="mb-3 <%= 'd-none' unless @question.answer_type && @question.answer_type.start_with?('multiple_choice') %>" data-question-editor-target="choice">
+    <%= form.label :choices, 'Choices', class: 'form-label' %>
+    <%= form.text_area :choices, class: 'form-control', rows: 5,value: @question.read_attribute(:choices) %>
     <small id="choicesHelp" class="form-text text-muted">Enter one answer choice per line.</small>
   </div>
-  <div class="form-group <%= 'd-none' unless @question.answer_type == 'score' %>" id="slider-group">
-    <%= form.label :score_range, 'Score range' %>
-    <%= form.text_field :score_range, {class: 'form-control js-range-slider',
-      'data-min': 0, 'data-max': 20, 'data-type': 'double', 'data-from': @question.score_range.min, 'data-to': @question.score_range.max} %>
-    <small id="sliderHelp" class="form-text text-muted">Enter the minimum & maximum score values.</small>
+  <div class="mb-3 <%= 'd-none' unless @question.answer_type == 'score' %>" data-question-editor-target="score">
+    <%= form.label :score_range, 'Score range', class: 'form-label' %>
+    <div data-controller="slider" class="mb-5">
+      <%= form.hidden_field :score_range, data: {slider_target: "scoreRange"} %>
+    </div>
+    <small id="sliderHelp" class="form-text text-muted mt-5">Enter the minimum & maximum score values.</small>
   </div>
-  <div class="form-group">
-    <%= form.label :answer_type %>
-    <%= form.select :answer_type, Question.answer_types.keys.map {|k| [k.humanize, k] }, {}, {class: 'custom-select', id: 'answer-type-select'} %>
+  <div class="mb-3">
+    <%= form.label :answer_type, 'Answer type', class: 'form-label' %>
+    <%= form.select :answer_type, Question.answer_types.keys.map {|k| [k.humanize, k] }, {}, {class: 'form-select', data: {action: "change->question-editor#update"}} %>
   </div>
 </div>

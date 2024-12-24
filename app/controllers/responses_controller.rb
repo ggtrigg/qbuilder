@@ -37,14 +37,12 @@ class ResponsesController < ApplicationController
       if @response.save
         if user_signed_in? && (@questionnaire.user == current_user)
           format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response. (You responded to your own questionnaire!)' }
-          format.json { render :show, status: :created, location: @response }
         else
           ResponseMailer.with(response: @response).send_response.deliver_now
           format.html { redirect_to thankyou_path(@questionnaire) }
         end
       else
-        format.html { render :new }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -54,8 +52,7 @@ class ResponsesController < ApplicationController
   def destroy
     @response.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaire_responses_url(@questionnaire), notice: 'Response was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to questionnaire_responses_url(@questionnaire) }
     end
   end
   

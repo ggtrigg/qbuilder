@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   root 'questionnaires#landing'
   resources :questionnaires do
-    resources :questions do
-      collection do
-        patch :sort
-      end
-    end
+    resources :questions
     resources :responses, except: [:edit, :update]
   end
   get '/questionnaires/other/(:uid)', to: 'questionnaires#index_other', as: :questionnaires_uid

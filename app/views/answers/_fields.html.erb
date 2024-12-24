@@ -1,72 +1,76 @@
 <%= form.hidden_field :question_id %>
 <% case form.object.question.answer_type.to_sym %>
 <% when :single_line %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <%= form.label :atext, form.object.question.blurb %>
     <%= form.text_field :atext, class: 'form-control', required: true %>
   </div>
 <% when :multi_line %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <%= form.label :atext, form.object.question.blurb %>
     <%= form.text_area :atext, class: 'form-control', required: true %>
   </div>
 <% when :yes_no %>
-  <div>
-    <%= form.object.question.blurb %>
-  </div>
-  <div class="custom-control custom-radio custom-control-inline">
-    <%= form.radio_button :yes_no, true, {class: 'custom-control-input', required: true} %>
-    <%= form.label :yes_no_true, 'Yes', {class: 'custom-control-label'} %>
-  </div>
-  <div class="custom-control custom-radio custom-control-inline mb-2">
-    <%= form.radio_button :yes_no, false, {class: 'custom-control-input'} %>
-    <%= form.label :yes_no_false, 'No', {class: 'custom-control-label'} %>
+  <div class="form-group mb-3">
+    <div>
+      <%= form.object.question.blurb %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :yes_no, true, {class: 'form-check-input', required: true} %>
+      <%= form.label :yes_no_true, 'Yes', {class: 'form-check-label'} %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :yes_no, false, {class: 'form-check-input'} %>
+      <%= form.label :yes_no_false, 'No', {class: 'form-check-label'} %>
+    </div>
   </div>
 <% when :true_false %>
-  <div>
-    <%= form.object.question.blurb %>
-  </div>
-  <div class="custom-control custom-radio custom-control-inline">
-    <%= form.radio_button :yes_no, true, {class: 'custom-control-input', required: true} %>
-    <%= form.label :yes_no_true, 'True', {class: 'custom-control-label'} %>
-  </div>
-  <div class="custom-control custom-radio custom-control-inline mb-2">
-    <%= form.radio_button :yes_no, false, {class: 'custom-control-input'} %>
-    <%= form.label :yes_no_false, 'False', {class: 'custom-control-label'} %>
+  <div class="form-group mb-3">
+    <div>
+      <%= form.object.question.blurb %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :yes_no, true, {class: 'form-check-input', required: true} %>
+      <%= form.label :yes_no_true, 'True', {class: 'form-check-label'} %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :yes_no, false, {class: 'form-check-input'} %>
+      <%= form.label :yes_no_false, 'False', {class: 'form-check-label'} %>
+    </div>
   </div>
 <% when :multiple_choice_single %>
-  <div class="mb-2">
+  <div class="mb-3">
     <div>
       <%= form.object.question.blurb %>
     </div>
     <% form.object.question.choices.each_with_index do |choice, index|%>
-    <div class="custom-control custom-radio <%= 'custom-control-inline' if form.object.question.inlineable? %>">
-      <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
-      <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :choice, index, {class: 'form-check-input', required: true} %>
+      <%= form.label "choice_#{index}".to_sym, choice, {class: 'form-check-label'} %>
     </div>
     <% end if form.object.question.choices.present? %>
   </div>
 <% when :multiple_choice_any %>
-  <div class="mb-2">
+  <div class="mb-3">
     <div>
       <%= form.object.question.blurb %>
     </div>
     <% form.object.question.choices.each_with_index do |choice, index|%>
-    <div class="custom-control custom-checkbox <%= 'custom-control-inline' if form.object.question.inlineable? %>">
-      <%= form.check_box :choice, {multiple: true, class: 'custom-control-input'}, index, nil %>
-      <%= form.label "choice_#{index}".to_sym, choice, {class: 'custom-control-label'} %>
+    <div class="form-check form-check-inline">
+      <%= form.check_box :choice, {multiple: true, class: 'form-check-input'}, index, nil %>
+      <%= form.label "choice_#{index}".to_sym, choice, {class: 'form-check-label'} %>
     </div>
     <% end %>
   </div>
 <% when :score %>
-  <div class="mb-2">
+  <div class="mb-3">
     <div>
       <%= form.object.question.blurb %>
     </div>
-    <% form.object.question.score_range.each do |index|%>
-    <div class="custom-control custom-radio custom-control-inline">
-      <%= form.radio_button :choice, index, {class: 'custom-control-input', required: true} %>
-      <%= form.label "choice_#{index}".to_sym, index, {class: 'custom-control-label'} %>
+    <% form.object.question.to_range.each do |index|%>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :choice, index, {class: 'form-check-input', required: true} %>
+      <%= form.label "choice_#{index}".to_sym, index, {class: 'form-check-label'} %>
     </div>
     <% end %>
   </div>

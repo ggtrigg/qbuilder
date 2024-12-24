@@ -1,23 +1,35 @@
-<div class="row">
-  <div class="col-12">
-    <h1 class=pt-5>Questionnaires</h1>
-  </div>
-    
-  <% @questionnaires.each do |questionnaire| %>
-    <% ctx = questionnaire.responses.present? ? 'info' : 'success' %>
-    <div class="col-md-8 m-1 p-2 rounded list-group-item-<%= ctx %>">
-      <%= link_to questionnaire.title, questionnaire, class: 'text-reset stretched-link' %>
-      <span class="badge badge-<%= ctx %> float-right"><%= questionnaire.responses.count %></span>
-    </div>
-    <% if questionnaire.user != current_user %>
-    <div class="col m-1 p-2"><div class=float-right><%= questionnaire.user.email %></div></div>
-    <% else %>
-    <div class="col"></div>
-    <% end %>
-    <div class="w-100"></div>
-  <% end %>
+<% content_for :head do %>
+  <%= turbo_page_requires_reload %>
+<% end %>
 
-  <div class="col-12">
-    <%= link_to 'New Questionnaire', new_questionnaire_path, class: 'btn btn-primary mt-2' %>
+<turbo-frame id="main-content" refresh="morph">
+  <div class="row">
+    <div class="col">
+      <h1>Questionnaires</h1>
+    </div>
   </div>
-</div>
+  
+  <div class="row">
+    <div class="col-sm-2">
+      <%= link_to 'New Questionnaire', new_questionnaire_path, class: 'btn btn-primary' %>
+    </div>
+    <div class="col-sm-auto">
+      <% @questionnaires.each do |questionnaire| %>
+        <% ctx = questionnaire.responses.present? ? 'info' : 'success' %>
+        <div class="row py-2 my-1 border border-<%= ctx %> rounded">
+          <div class="col">
+            <%= link_to questionnaire.title, questionnaire, class: "link-underline link-underline-opacity-0" %>
+          </div>
+          <div class="col-auto">
+            <span class="badge text-bg-primary rounded-pill float-end"><%= responses_count_str(questionnaire) %></span>
+          </div>
+          <% if questionnaire.user != current_user %>
+            <div class="col-auto">
+              <span class="text-body-secondary float-end"> <%= questionnaire.user.email %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>

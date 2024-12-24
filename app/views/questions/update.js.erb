@@ -1,4 +1,0 @@
-<% unless @question.errors.present? %>
-  $("#<%= dom_id(@question) %>").replaceWith("<%= escape_javascript(render @question) %>");
-<% end %>
-$('.flash-wrapper').html("<%= escape_javascript(render 'layouts/messages') %>");

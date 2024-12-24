@@ -5,20 +5,24 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires
   # GET /questionnaires.json
   def index
-    @questionnaires = current_user.admin? ? Questionnaire.order(:user_id).all : current_user.questionnaires.all
+    @questionnaires = current_user.admin? ? Questionnaire.order(:user_id, :title).all : current_user.questionnaires.order(:title).all
   end
 
   def index_other
     return unless current_user.admin?
     user = User.find(params[:uid])
-    @questionnaires = user.questionnaires.all
+    @questionnaires = user.questionnaires.order(:title).all
     render :index
   end
 
   # GET /questionnaires/1
   # GET /questionnaires/1.json
   def show
-    @response_count = @questionnaire.responses.count
+    if params[:show_questions].present?
+      render partial: 'questionnaires/questions', locals: { questionnaire: @questionnaire }
+    else
+      render :show
+    end
   end
 
   # GET /questionnaires/new
@@ -37,11 +41,9 @@ class QuestionnairesController < ApplicationController
 
     respond_to do |format|
       if @questionnaire.save
-        format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully created.', flash: {show_questions: true} }
-        format.json { render :show, status: :created, location: @questionnaire }
+        format.html { redirect_to @questionnaire }
       else
-        format.html { render :new }
-        format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -51,11 +53,9 @@ class QuestionnairesController < ApplicationController
   def update
     respond_to do |format|
       if @questionnaire.update(questionnaire_params)
-        format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully updated.' }
-        format.json { render :show, status: :ok, location: @questionnaire }
+        format.html { redirect_to @questionnaire }
       else
-        format.html { render :edit }
-        format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -66,7 +66,6 @@ class QuestionnairesController < ApplicationController
     @questionnaire.destroy
     respond_to do |format|
       format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully deleted.' }
-      format.json { head :no_content }
     end
   end
 

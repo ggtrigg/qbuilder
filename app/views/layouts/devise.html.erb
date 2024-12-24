@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || 'Questionnaire builder' %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= yield :head %>
+
+    <%= render 'application/favicon' %>
+    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  </head>
+
+  <body class="pt-5">
+    <div class="container mt-3">
+      
+      <%= yield %>
+        
+      <div id="footer" class="row justify-content-between mt-5 text-muted">
+        <%= render 'footer' %>
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,18 +3,26 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
+    "@hotwired/turbo-rails": "^8.0.12",
+    "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^6.0.0",
-    "@rails/actiontext": "^6.0.3",
+    "@rails/actiontext": "^8.0.0",
     "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.2.1",
-    "bootstrap": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "ion-rangeslider": "^2.3.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.13.2",
+    "nouislider": "^15.8.1",
     "popper.js": "^1.16.1",
-    "trix": "^2.1.4",
-    "turbolinks": "^5.2.0"
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.81.0",
+    "trix": "^2.1.8"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "version": "0.1.0",
   "devDependencies": {
@@ -122,5 +130,8 @@
     "mime": "2.4.6",
     "faye-websocket": "0.11.3",
     "websocket-driver": "0.7.4"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

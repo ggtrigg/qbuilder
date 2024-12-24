@@ -11,8 +11,8 @@ class Question < ApplicationRecord
     read_attribute(:choices).split /\R/ if read_attribute(:choices).present?
   end
 
-  def score_range
-    if read_attribute(:score_range).present? && read_attribute(:score_range) =~ /\A(\d+)(;|\.\.|-)(\d+)\Z/
+  def to_range
+    if score_range.present? && score_range =~ /\A(\d+)(;|\.\.|-)(\d+)\Z/
       Range.new($1, $3)
     else
       1..10

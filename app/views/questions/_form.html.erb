@@ -1,3 +1,7 @@
-<%= form_for(@question, url: action_url(@question), remote: true) do |form| %>
+<%= form_for(@question, url: action_url(@question)) do |form| %>
   <%= render 'questions/fields', form: form %>
+  <div class="mt-3">
+    <a href="<%= questionnaire_path(@question.questionnaire, show_questions: true) %>" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save Question</button>
+  </div>
 <% end %>

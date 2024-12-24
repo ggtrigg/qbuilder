@@ -1,9 +1,15 @@
-<div class="row" id="<%= dom_id(question) %>">
+<li class="row item" id="<%= dom_id(question) %>" data-questions-target="question"
+  data-sortable-update-url="<%= questionnaire_question_path(@questionnaire, question) %>">
   <div class="col-9 mt-3">
-    <h5>Question <span class="q-index"><%= question.position %></span>.</h5>
-    <div><%= question.blurb %></div>
+    <h5>
+      <% if @questionnaire.editable? %>
+        <span class="handle"><%= image_tag('grip-vertical.svg', class: 'img-fluid') %></span>
+      <% end %>
+      Question <span class="q-index"><%= question.position %></span>.
+    </h5>
+    <div class="ms-4"><%= question.blurb %></div>
     <% if question.answer_type.downcase.start_with? 'multiple_choice' %>
-    <div><strong>Choices: </strong><%= sanitize question.choices.join(' &bull; ') if question.choices.present? %></div>
+    <div class="ms-4"><strong>Choices: </strong><%= sanitize question.choices.join(' &bull; ') if question.choices.present? %></div>
     <% end %>
   </div>
   <div class="col-3">
@@ -12,8 +18,8 @@
       <%= score_range_s(question) if question.answer_type == 'score' %>
     </div>
 
-    <%= link_to('Edit', edit_questionnaire_question_path(@questionnaire, question), remote: true, class: 'btn btn-primary btn-sm') if @response_count.zero? %>
+    <%= link_to('Edit', edit_questionnaire_question_path(@questionnaire, question), remote: true, class: 'btn btn-primary btn-sm') if @questionnaire.editable? %>
     <%= link_to('Delete', questionnaire_question_path(@questionnaire, question), method: :delete,
-      data: {confirm: 'Really delete this question?'}, remote: true, class: 'btn btn-danger btn-sm') if @response_count.zero? %>
+      data: {turbo_confirm: 'Really delete this question?', turbo_method: :delete}, class: 'btn btn-danger btn-sm') if @questionnaire.editable? %>
   </div>
-</div>
+</li>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_233512) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_30_042902) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -104,6 +104,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_233512) do
     t.string "encrypted_sex"
     t.string "encrypted_sex_iv"
     t.string "encrypted_name_iv"
+    t.string "name"
+    t.string "name_tmp"
+    t.string "address"
+    t.string "address_tmp"
+    t.string "email"
+    t.string "email_tmp"
+    t.string "phone"
+    t.string "phone_tmp"
+    t.string "age"
+    t.string "age_tmp"
+    t.string "sex"
+    t.string "sex_tmp"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
   end
 
