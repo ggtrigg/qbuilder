@@ -24,6 +24,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Still need this until conversion is done.
+gem "attr_encrypted"
+
 gem 'hashid-rails', '~> 1.4'
 gem 'devise'
 gem 'acts_as_list'
@@ -48,6 +51,14 @@ gem "solid_cable"
 gem 'bootsnap', require: false
 
 group :development, :test do
+  # We use Factory Bot in place of fixtures
+  # to generate realistic test data
+  gem "factory_bot_rails"
+  
+  # We use Faker to generate values for attributes
+  # in each factory
+  gem "faker"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 

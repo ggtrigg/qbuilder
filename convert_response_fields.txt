@@ -1,0 +1,18 @@
+Refer to https://engineeringblog.wonolo.com/migrate-from-attrencrypted-to-activerecordencryption
+
+Add columns - see migration
+Add "encrypts" for the _tmp fields
+Copy data to the _tmp fields a la ...
+see tmp/encryption_swap.rb
+
+User.find_in_batches do |users_batch|
+  users_batch.map do |user|
+    user.address_tmp = user.address
+    user.save
+  end
+end
+User.update_all("address=address_tmp")
+
+Remove the "attr_encrypted" fields & change to "encrypts" fields to non _tmp version
+
+Afterwards, remove all "encrypted_*", "encrypted_*_iv", and "_tmp" fields.

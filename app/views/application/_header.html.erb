@@ -11,6 +11,9 @@
           <% end %>
         </li>
         <span class="text-success navbar-text mx-auto">Logged in as <%= current_user.email %></span>
+        <% if current_user.admin? %>
+          <span class="text-secondary navbar-text mx-auto fw-light">Rails v<%= Rails.version %></span>
+        <% end %>
         <li class="nav-item">
           <%= link_to('Admin '.html_safe, users_path, class: 'nav-link', data: { turbo_frame: 'main-content' }) if current_user.try(:admin?) %>
         </li>
