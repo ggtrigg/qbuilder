@@ -24,11 +24,12 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
-    config.public_file_server.headers = { "Cache-Control" => "public, max-age=#{2.days.to_i}" }
+    config.public_file_server.headers = { "cache-Control" => "public, max-age=#{2.days.to_i}" }
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    # Change to :null_store to avoid any caching.
+    config.cache_store = :memory_store
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
@@ -41,7 +42,7 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 4004 }
   config.action_mailer.smtp_settings = {
     address: 'ironman.gatewaybbs.com.au',
     port: Rails.application.credentials.smtp[:port],
@@ -63,6 +64,9 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+
+  # Append comments with runtime information tags to SQL queries in logs.
+  config.active_record.query_log_tags_enabled = true
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
