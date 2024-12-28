@@ -16,7 +16,7 @@
       <p class="text-muted">Send this link to the people you wish to complete this questionnaire:
       <%= link_to nil, new_response_url(@questionnaire) %></p>
       <% unless @questionnaire.editable? %>
-        <p>Once someone has completed a response you can no longer edit this questionnaire.
+        <p>Once someone has completed a response you can no longer add or change questions to this questionnaire.
           <%= link_to 'See responses', questionnaire_responses_path(@questionnaire), class: 'btn btn-primary btn-sm' %></p>
       <% end %>
       <nav class="nav nav-tabs" role="tablist" data-controller="tabs">
@@ -29,9 +29,7 @@
             <div class="card my-2">
               <div class="card-header">
                 <h4 class="float-start">Questionnaire description</h4>
-                <% if @questionnaire.editable? %>
-                  <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary float-end', role: 'button' %>
-                <% end %>
+                <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: 'btn btn-primary float-end', role: 'button' %>
               </div>
               <div class="card-body">
                 <div class="card-text">
