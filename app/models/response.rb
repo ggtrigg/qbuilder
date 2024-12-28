@@ -20,28 +20,12 @@ class Response < ApplicationRecord
   # end
   validates_associated :answers
 
-  # self.ignored_columns = %w[name address email phone age sex]
-
-  # attr_encrypted_options.merge!(allow_empty_value: true)
-  # attr_encrypted :name, key: Rails.application.credentials.response[:name_key]
-  # attr_encrypted :address, key: Rails.application.credentials.response[:address_key]
-  # attr_encrypted :email, key: Rails.application.credentials.response[:email_key]
-  # attr_encrypted :phone, key: Rails.application.credentials.response[:phone_key]
-  # attr_encrypted :age, key: Rails.application.credentials.response[:age_key]
-  # attr_encrypted :sex, key: Rails.application.credentials.response[:sex_key]
-
   encrypts :name
   encrypts :address
   encrypts :email
   encrypts :phone
   encrypts :age
   encrypts :sex
-  # encrypts :name_tmp
-  # encrypts :address_tmp
-  # encrypts :email_tmp
-  # encrypts :phone_tmp
-  # encrypts :age_tmp
-  # encrypts :sex_tmp
   
   def email_valid?
     valid_address?(email)

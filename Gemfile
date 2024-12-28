@@ -24,9 +24,6 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Still need this until conversion is done.
-gem "attr_encrypted"
-
 gem 'hashid-rails', '~> 1.4'
 gem 'devise'
 gem 'acts_as_list'
