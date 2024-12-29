@@ -1,51 +1,48 @@
-<div class="row">
-  <div class="col-sm-11 offset-sm-1">
-    <h1>
-      <%= @questionnaire.title %>
-    </h1>
-  </div>
-  <div class="col-sm-1 d-print-none">
-    <%= link_to 'Back', questionnaire_responses_path(@questionnaire), class: 'btn btn-secondary', role: 'button' %>
-  </div>
-  <div class="col-sm-10 p-3">
-    <%= @questionnaire.description %>
-  </div>
-  <div class="col-sm-1">
-    <%= link_to('Delete', questionnaire_response_path(@questionnaire, @response), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }) %>
-  </div>
-
-  <div class="col-sm-10 offset-sm-1 border rounded mb-2">
-    <% %w(name address email phone age sex).each do |detail| %>
-      <% val = @response.send(detail) %>
-      <% if val %>
-        <p><strong><%= detail.capitalize %>:</strong> <%= present(detail) %></p>
-      <% end %>
-    <% end %>
-  </div>
-    
-  <% @response.answers.each_with_index do |answer, i| %>
-    <div class="col-sm-10 offset-sm-1">
-      <h5>Question <%= i + 1 %>.</h5>
-      <p class="text-light bg-dark px-2"><%= answer.question.blurb %></p>
-      <% case answer.question.answer_type.to_sym %>
-      <% when :single_line, :multi_line %>
-        <p><%= answer.atext %></p>
-      <% when :yes_no %>
-        <p><%= answer.yes_no ? 'Yes' : 'No' %></p>
-      <% when :true_false %>
-        <p><%= answer.yes_no.to_s.humanize %></p>
-      <% when :multiple_choice_single %>
-        <p><%= answer.question.choices[answer.choice.to_i] %></p>
-      <% when :multiple_choice_any %>
-        <% if answer.choice.present? %>
-          <p><%= answer.question.choices.values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %></p>
-        <% else %>
-          <p class="text-muted">(No choices selected)</p>
+<turbo-frame id="main-content">
+  <div class="row pt-4">
+    <div class="col-sm-1 d-print-none">
+      <%= link_to 'Back', questionnaire_responses_path(@questionnaire), class: 'btn btn-secondary', role: 'button' %>
+    </div>
+    <div class="col-sm-10">
+      <h1>
+        <%= @questionnaire.title %>
+      </h1>
+      <%= @questionnaire.description %>
+  
+      <% %w(name address email phone age sex).each do |detail| %>
+        <% val = @response.send(detail) %>
+        <% if val %>
+          <p><strong><%= detail.capitalize %>:</strong> <%= present(detail) %></p>
         <% end %>
-      <% when :score %>
-        <p><%= answer.choice.to_i %></p>
+      <% end %>
+  
+      <% @response.answers.each_with_index do |answer, i| %>
+        <div>
+          <h5>Question <%= i + 1 %>.</h5>
+          <p class="text-bg-dark px-2"><%= answer.question.blurb %></p>
+          <% case answer.question.answer_type.to_sym %>
+          <% when :single_line, :multi_line %>
+            <p><%= answer.atext %></p>
+          <% when :yes_no %>
+            <p><%= answer.yes_no ? 'Yes' : 'No' %></p>
+          <% when :true_false %>
+            <p><%= answer.yes_no.to_s.humanize %></p>
+          <% when :multiple_choice_single %>
+            <p><%= answer.question.choices[answer.choice.to_i] %></p>
+          <% when :multiple_choice_any %>
+            <% if answer.choice.present? %>
+              <p><%= answer.question.choices.values_at(*(JSON.parse(answer.choice).map {|n| n.to_i})).join(' &bull; ').html_safe %></p>
+            <% else %>
+              <p class="text-muted">(No choices selected)</p>
+            <% end %>
+          <% when :score %>
+            <p><%= answer.choice.to_i %></p>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
-  
-</div>
+    <div class="col-sm-1">
+      <%= link_to('Delete', questionnaire_response_path(@questionnaire, @response), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }) %>
+    </div>
+  </div>
+</turbo-frame>

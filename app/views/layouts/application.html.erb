@@ -1,36 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Questionnaire builder</title>
+    <title><%= content_for(:title) || 'Questionnaire builder' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <% if @do_redirect %>
-    <meta http-equiv = "refresh" content = "<%= @questionnaire.redirect_delay_secs %>; url = <%= @questionnaire.redirect_url %>">
-    <% end %>
+
+    <%= yield :head %>
 
     <%= render 'application/favicon' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <div class="container-lg my-5">
-      <div class="row">
-        <% if user_signed_in? %>
-          <div class="col-12 fixed-top d-print-none">
-            <%= render 'header' %>
-          </div>
-        <% end %>
-      </div>
+  <body class="pt-5">
+    <div class="container mt-3">
+      <% if user_signed_in? %>
+        <%= render 'header' %>
+      <% end %>
       <div class="row flash-wrapper">
         <%= render 'layouts/messages' %>
       </div>
-      <%= yield %>
-      <div id="footer" class="row justify-content-between mt-5 text-muted">
-        
-        <%= render 'footer' %>
       
+      <%= yield %>
+        
+      <div id="footer" class="row justify-content-between mt-5 text-muted">
+        <%= render 'footer' %>
       </div>
     </div>
   </body>

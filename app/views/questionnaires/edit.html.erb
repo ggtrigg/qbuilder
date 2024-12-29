@@ -1,10 +1,17 @@
-<div class="row">
-  <div class="col-sm-1">
-      <%= link_to 'Back', questionnaire_path(@questionnaire), class: 'btn btn-secondary' %>
+<turbo-frame id="main-content" refresh="morph">
+  <div class="row">
+    <div class="col offset-sm-1 mr-auto">
+      <h1 class="mt-3">
+        Edit Questionnaire
+      </h1>
+    </div>
   </div>
-  <div class="col-sm-10 offset-sm-1 mt-5">
-    <h1>Editing Questionnaire</h1>
-    
-    <%= render 'form', questionnaire: @questionnaire %>
+  <div class="row">
+    <div class="col-sm-1">
+      <%= link_to 'Back', questionnaire_path(@questionnaire), class: 'btn btn-secondary', role: 'button' %>
+    </div>
+    <div class="col">
+      <%= render 'form', questionnaire: @questionnaire %>
+    </div>
   </div>
-</div>
+</turbo-frame>

@@ -1,0 +1,12 @@
+<turbo-frame id="questions">
+  <% if @questionnaire.editable? %>
+    <%= link_to 'Add Question', new_questionnaire_question_path(questionnaire), remote: true, class: 'btn btn-primary btn-sm mt-2' %>
+  <% end %>
+  <ul <%= 'id=questions' if @questionnaire.editable? %>
+    data-controller="sortable questions" data-sortable-handle-value=".handle" data-sortable-disabled-value="<%= @questionnaire.editable? ? 'false' : 'true' %>"
+    data-action="qsortable:update->questions#updateQuestionNumbers"
+    data-sortable-resource-name-value="question"
+    class="border rounded my-2 p-3 border-<%= @questionnaire.editable? ? 'success' : 'danger' %>">
+    <%= render questionnaire.questions %>
+  </ul>
+</turbo-frame>

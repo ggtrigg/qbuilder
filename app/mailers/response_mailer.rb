@@ -1,11 +1,11 @@
 class ResponseMailer < ApplicationMailer
   helper ResponsesHelper
-  
+
   def send_response
     @response = @params[:response]
     @user = @response.questionnaire.user
     if @response.email
-      mail(to: @user.email, from: 'qbuilder@glenntrigg.net', reply_to: @response.email, subject: "Questionnaire response submitted: #{@response.name}")
+      mail(to: @user.email, from: "qbuilder@glenntrigg.net", reply_to: @response.email, subject: "Questionnaire response submitted: #{@response.name}")
     else
       mail(to: @user.email, subject: "Questionnaire response submitted: #{@response.name}")
     end

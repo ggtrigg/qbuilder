@@ -6,40 +6,28 @@ class Response < ApplicationRecord
   include Hashid::Rails
   include EmailAddressUtil
 
-  enum sexes: {male: 'Male', female: 'Female', other: 'Other'}
+  attribute :sexes, :string
+  enum :sexes, { male: 0, female: 1, other: 2 }
 
   validates :name, presence: true
   validates :address, presence: true, if: -> { questionnaire.r_address }
   validates :phone, presence: true, if: -> { questionnaire.r_phone }
   validates :age, presence: true, if: -> { questionnaire.r_age }
   validates :sex, presence: true, if: -> { questionnaire.r_sex }
-  validates_each :email, if: -> { questionnaire.r_email } do |record, attr, value|
-    record.errors.add(attr, 'address invalid') unless record.email_valid?
-  end
+  validates :email, presence: true, if: -> { questionnaire.r_email }
+  # validates_each :email, if: -> { questionnaire.r_email } do |record, attr, value|
+  #   record.errors.add(attr, 'address invalid') unless record.email_valid?
+  # end
   validates_associated :answers
 
-  attr_encrypted_options.merge!(allow_empty_value: true)
-  attr_encrypted :name, key: Rails.application.credentials.response[:name_key]
-  attr_encrypted :address, key: Rails.application.credentials.response[:address_key]
-  attr_encrypted :email, key: Rails.application.credentials.response[:email_key]
-  attr_encrypted :phone, key: Rails.application.credentials.response[:phone_key]
-  attr_encrypted :age, key: Rails.application.credentials.response[:age_key]
-  attr_encrypted :sex, key: Rails.application.credentials.response[:sex_key]
-  
+  encrypts :name
+  encrypts :address
+  encrypts :email
+  encrypts :phone
+  encrypts :age
+  encrypts :sex
+
   def email_valid?
     valid_address?(email)
-  end
-
-  def self.to_csv
-    require 'csv'
-
-    CSV.generate(headers: true) do |csv|
-      questionnaire = first.questionnaire
-      csv << questionnaire.r_attributes + questionnaire.questions.map {|q| q.blurb }
-      
-      all.each do |response|
-        csv << questionnaire.r_attributes.map{ |attr| response.send(attr) } + response.answers.map {|a| a.value '|' }
-      end
-    end
   end
 end

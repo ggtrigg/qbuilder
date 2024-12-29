@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
       @question.score_range = last.score_range
     end
 
-    render :js, template: 'questions/question'
+    render
   end
 
   # POST /questions
@@ -21,49 +21,33 @@ class QuestionsController < ApplicationController
   def create
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.new(question_params)
-    @response_count = @questionnaire.responses.count
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @questionnaire, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @questionnaire }
-        format.js { flash.now[:notice] = 'Question was successfully created.' }
+        format.html { render partial: "questionnaires/questions", locals: { questionnaire: @questionnaire } }
       else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-        format.js { flash.now[:alert] = @question.errors.map do |e|
-          [e.attribute == :blurb ? 'Question' : e.attribute.to_s.capitalize,
-          e.message].join(' ')
-        end.join(', ') }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
+  end
+
+  def show
   end
 
   def edit
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.find(params[:id])
-    @response_count = @questionnaire.responses.count
-
-    render :js, template: 'questions/question'
   end
 
   def update
     @questionnaire = Questionnaire.find(params[:questionnaire_id])
     @question = @questionnaire.questions.find(params[:id])
-    @response_count = @questionnaire.responses.count
 
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @questionnaire, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :created, location: @questionnaire }
-        format.js { flash.now[:notice] = 'Question was successfully updated.' }
+        format.html { render partial: "questionnaires/questions", locals: { questionnaire: @questionnaire } }
       else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-        format.js { flash.now[:alert] = @question.errors.map do |e|
-          [e.attribute == :blurb ? 'Question' : e.attribute.to_s.capitalize,
-          e.message].join(' ')
-        end.join(', ') }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -75,18 +59,9 @@ class QuestionsController < ApplicationController
     @questionnaire = @question.questionnaire
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaire_url(@questionnaire), notice: 'Question was successfully deleted.' }
-      format.json { head :no_content }
-      format.js  { flash.now[:notice] = 'Question was successfully deleted.' }
+      format.html { redirect_to questionnaire_url(@questionnaire) }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@question) }
     end
-  end
-
-  def sort
-    params[:question].each_with_index do |id, index|
-      Question.where(id: id).update_all(position: index + 1)
-    end
-
-    head :ok
   end
 
   private
@@ -97,6 +72,6 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:blurb, :answer_type, :choices, :score_range)
+      params.require(:question).permit(:blurb, :answer_type, :choices, :score_range, :position)
     end
 end

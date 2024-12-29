@@ -1,0 +1,14 @@
+// Place all the styles related to the questionnaires controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+div.trix-content {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.handle {
+  cursor: move;
+  cursor: grab;
+}

@@ -40,3 +40,6 @@ yarn-debug.log*
 /config/credentials.yml.enc
 /config/credentials/test.key
 qbuilder_test.sqlite3*
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

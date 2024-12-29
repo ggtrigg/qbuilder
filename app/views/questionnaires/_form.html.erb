@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, class: 'form-control' %>
+    <%= form.text_field :title, class: 'form-control', required: true %>
   </div>
   <div class="form-group">
     <%= form.label :description %>
@@ -35,13 +35,16 @@
     <small id="redirectDelayHelp" class="form-text text-muted">How many seconds to wait before redirecting.</small>
   </div>
   <p>Which of the following recipient details do you require?</p>
+  <% unless @questionnaire.editable? %>
+    <p class="text-muted">Once there are responses to this questionnaire you can't change this.</p>
+  <% end %>
   <div class="custom-control custom-checkbox custom-control-inline">
     <input type="checkbox" class="custom-control-input" id="nameCheck1" checked disabled>
     <label class="custom-control-label" for="nameCheck1">Name</label>
   </div>
   <% Questionnaire::R_ATTRIBUTES.each do |r_attr| %>
     <div class="custom-control custom-checkbox custom-control-inline">
-      <%= form.check_box r_attr.to_sym, class: 'custom-control-input' %>
+      <%= form.check_box r_attr.to_sym, class: 'custom-control-input', disabled: !@questionnaire.editable? %>
       <%= form.label r_attr.to_sym, r_attr.gsub(/^r_/, ''), class: 'custom-control-label' %>
     </div>
   <% end %>

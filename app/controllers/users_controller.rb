@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :require_admin
 
   def index
@@ -9,15 +8,15 @@ class UsersController < ApplicationController
   def become
     return unless current_user.admin?
     bypass_sign_in(User.find(params[:id]))
-    redirect_to root_url # or user_root_url
+    redirect_to root_url
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@user) }
     end
   end
 

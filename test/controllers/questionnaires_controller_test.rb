@@ -1,8 +1,11 @@
-require 'test_helper'
+require "test_helper"
+include Warden::Test::Helpers
 
 class QuestionnairesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @questionnaire = questionnaires(:one)
+    @user = FactoryBot.create(:user)
+    @questionnaire = FactoryBot.create(:questionnaire, user: @user)
+    login_as @user, scope: :user
   end
 
   test "should get index" do
@@ -16,7 +19,7 @@ class QuestionnairesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create questionnaire" do
-    assert_difference('Questionnaire.count') do
+    assert_difference("Questionnaire.count") do
       post questionnaires_url, params: { questionnaire: { title: @questionnaire.title } }
     end
 
@@ -39,7 +42,7 @@ class QuestionnairesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy questionnaire" do
-    assert_difference('Questionnaire.count', -1) do
+    assert_difference("Questionnaire.count", -1) do
       delete questionnaire_url(@questionnaire)
     end
 

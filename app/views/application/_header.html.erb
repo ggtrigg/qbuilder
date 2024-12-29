@@ -1,8 +1,26 @@
-<nav class="nav nav-fill bg-light px-4">
-  <%= link_to(root_path, class: 'nav-item') do %>
-    <%= fa_icon 'home 2x' %>
-  <% end %>
-  <span class="text-success nav-item">Logged in as <%= current_user.email %></span>
-  <%= link_to('Admin '.html_safe, users_path, class: 'nav-item') if current_user.try(:admin?) %>
-  <%= link_to('Log out'.html_safe, destroy_user_session_path, method: 'delete', class: 'nav-item') %>
+<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary d-print-none">
+  <div class="container-md">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav flex-grow-1 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to(root_path, class: 'nav-link', data: { turbo_frame: 'main-content' }) do %>
+            <%= image_tag('house-fill.svg', class: 'img-fluid') %> Home
+          <% end %>
+        </li>
+        <span class="text-success navbar-text mx-auto">Logged in as <%= current_user.email %></span>
+        <% if current_user.admin? %>
+          <span class="text-secondary navbar-text mx-auto fw-light">Rails v<%= Rails.version %></span>
+        <% end %>
+        <li class="nav-item">
+          <%= link_to('Admin '.html_safe, users_path, class: 'nav-link', data: { turbo_frame: 'main-content' }) if current_user.try(:admin?) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to('Log out'.html_safe, destroy_user_session_path, data: {turbo_method: :delete}, class: 'nav-link') %>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
