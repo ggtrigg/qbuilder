@@ -30,17 +30,4 @@ class Response < ApplicationRecord
   def email_valid?
     valid_address?(email)
   end
-
-  def self.to_csv
-    require 'csv'
-
-    CSV.generate(headers: true) do |csv|
-      questionnaire = first.questionnaire
-      csv << questionnaire.r_attributes + questionnaire.questions.map {|q| q.blurb }
-      
-      all.each do |response|
-        csv << questionnaire.r_attributes.map{ |attr| response.send(attr) } + response.answers.map {|a| a.value '|' }
-      end
-    end
-  end
 end

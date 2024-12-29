@@ -13,7 +13,7 @@ class Question < ApplicationRecord
 
   def to_range
     if score_range.present? && score_range =~ /\A(\d+)(;|\.\.|-)(\d+)\Z/
-      Range.new($1, $3)
+      Range.new($1.to_i, $3.to_i)
     else
       1..10
     end
