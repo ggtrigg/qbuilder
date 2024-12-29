@@ -44,7 +44,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: "localhost", port: 4004 }
   config.action_mailer.smtp_settings = {
-    address: 'ironman.gatewaybbs.com.au',
+    address: "ir  onman.gatewaybbs.com.au",
     port: Rails.application.credentials.smtp[:port],
     user_name: Rails.application.credentials.smtp[:user_name],
     password: Rails.application.credentials.smtp[:password]

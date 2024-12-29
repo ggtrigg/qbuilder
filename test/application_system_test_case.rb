@@ -1,7 +1,6 @@
 require "test_helper"
 
-Selenium::WebDriver::Chrome::Service.driver_path = 
-  "/usr/bin/chromedriver"
+Selenium::WebDriver::Chrome::Service.driver_path = "/usr/bin/chromedriver"
 
 Capybara.register_driver :root_headless_chrome do |app|
   options = Selenium::WebDriver::Options.chrome(

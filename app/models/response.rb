@@ -7,7 +7,7 @@ class Response < ApplicationRecord
   include EmailAddressUtil
 
   attribute :sexes, :string
-  enum :sexes, {male: 0, female: 1, other: 2}
+  enum :sexes, { male: 0, female: 1, other: 2 }
 
   validates :name, presence: true
   validates :address, presence: true, if: -> { questionnaire.r_address }
@@ -26,7 +26,7 @@ class Response < ApplicationRecord
   encrypts :phone
   encrypts :age
   encrypts :sex
-  
+
   def email_valid?
     valid_address?(email)
   end

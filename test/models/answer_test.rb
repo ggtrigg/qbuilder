@@ -1,6 +1,6 @@
 # test/models/answer_test.rb
 
-require 'test_helper'
+require "test_helper"
 
 class AnswerTest < ActiveSupport::TestCase
   setup do

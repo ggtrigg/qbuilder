@@ -31,12 +31,12 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    @response = @questionnaire.responses.build(response_params.reject {|k,v| v.empty?})
+    @response = @questionnaire.responses.build(response_params.reject { |k, v| v.empty? })
 
     respond_to do |format|
       if @response.save
         if user_signed_in? && (@questionnaire.user == current_user)
-          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: 'Thank you for your response. (You responded to your own questionnaire!)' }
+          format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: "Thank you for your response. (You responded to your own questionnaire!)" }
         else
           ResponseMailer.with(response: @response).send_response.deliver_now
           format.html { redirect_to thankyou_path(@questionnaire) }
@@ -55,12 +55,12 @@ class ResponsesController < ApplicationController
       format.html { redirect_to questionnaire_responses_url(@questionnaire) }
     end
   end
-  
+
   include EmailAddressUtil
 
   def verify_email
     respond_to do |format|
-      format.json { render json: {verified: valid_address?(params[:email_address])}}
+      format.json { render json: { verified: valid_address?(params[:email_address]) } }
     end
   end
 
@@ -73,13 +73,13 @@ class ResponsesController < ApplicationController
 
     def set_questionnaire
       @questionnaire = Questionnaire.find(params[:questionnaire_id])
-      unless (['new', 'create'].index action_name) or (@questionnaire.user == current_user) or current_user.admin?
-        redirect_to questionnaires_path, alert: 'Questionnaire not available.'
+      unless ([ "new", "create" ].include? action_name) or (@questionnaire.user == current_user) or current_user.admin?
+        redirect_to questionnaires_path, alert: "Questionnaire not available."
       end
   end
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[id question_id yes_no atext choice] << {choice: []})
+      params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[ id question_id yes_no atext choice ] << { choice: [] })
     end
 end

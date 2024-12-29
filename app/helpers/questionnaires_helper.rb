@@ -5,16 +5,16 @@ module QuestionnairesHelper
 
   def action_url(question)
     case action_name
-    when 'new'
+    when "new"
       questionnaire_questions_path(question.questionnaire)
-    when 'edit'
+    when "edit"
       questionnaire_question_path(question.questionnaire, question)
     end
   end
 
   def responses_count_str(questionnaire)
     count = questionnaire.responses.count
-    text = 'response'.pluralize(count)
+    text = "response".pluralize(count)
     "#{count} #{text}"
   end
 end

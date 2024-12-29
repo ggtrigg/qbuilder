@@ -7,7 +7,7 @@ module TestSupport
       block.()
     rescue Exception => ex
       puts "[ with_clues ] Test failed: #{ex.message}"
-# START:edit:3
+      # START:edit:3
       if page.driver.respond_to?(:browser)
         if page.driver.browser.respond_to?(:logs)
           logs = page.driver.browser.logs
@@ -17,7 +17,7 @@ module TestSupport
           end
           puts "[ with_clues ] } END Browser Logs"
         else
-          puts "[ with_clues ] NO BROWSER LOGS: " + 
+          puts "[ with_clues ] NO BROWSER LOGS: " +
                "page.driver.browser" +
                "#{page.driver.browser.class} " +
                "does not respond to #logs"
@@ -27,7 +27,7 @@ module TestSupport
              "#{page.driver.class} does not respond to #browser"
       end
       puts
-# END:edit:3
+      # END:edit:3
       puts "[ with_clues ] HTML {"
       puts
       puts page.html

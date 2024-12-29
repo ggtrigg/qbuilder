@@ -1,6 +1,6 @@
 # test/models/questionnaire_test.rb
 
-require 'test_helper'
+require "test_helper"
 
 class QuestionnaireTest < ActiveSupport::TestCase
   setup do

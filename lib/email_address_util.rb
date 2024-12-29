@@ -1,5 +1,4 @@
 module EmailAddressUtil
-
   def valid_address?(email_address)
     domain = begin
       Mail::Address.new(email_address).domain
@@ -10,7 +9,7 @@ module EmailAddressUtil
     is_good = if domain
       begin
         res = Dnsruby::Resolver.new
-        resp = res.query(domain, 'MX')
+        resp = res.query(domain, "MX")
         resp.answer.count > 0
       rescue
         false
@@ -19,5 +18,4 @@ module EmailAddressUtil
       false
     end
   end
-
 end

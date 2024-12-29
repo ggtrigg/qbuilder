@@ -16,7 +16,7 @@ class LoginTest < ApplicationSystemTestCase
     assert_selector "input[type=password]"
     assert_selector "input[type=submit]"
     fill_in "Email", with: user.email
-    fill_in "Password", with: 'password'
+    fill_in "Password", with: "password"
     click_on "Log in"
     assert_selector "h1", text: "Questionnaires"
   end
@@ -30,9 +30,9 @@ class LoginTest < ApplicationSystemTestCase
     assert_selector "input[type=password]"
     assert_selector "input[type=submit]"
     fill_in "Email", with: user.email
-    fill_in "Password", with: 'pazzword'
+    fill_in "Password", with: "pazzword"
     click_on "Log in"
     assert_selector "h2", text: "Log in"
-    # assert_selector "div", text: "Invalid email or password"
+    assert_selector "div", text: "Invalid email or password"
   end
 end

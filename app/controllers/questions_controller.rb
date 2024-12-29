@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { render partial: 'questionnaires/questions', locals: {questionnaire: @questionnaire} }
+        format.html { render partial: "questionnaires/questions", locals: { questionnaire: @questionnaire } }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -45,7 +45,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.update(question_params)
-        format.html { render partial: 'questionnaires/questions', locals: { questionnaire: @questionnaire } }
+        format.html { render partial: "questionnaires/questions", locals: { questionnaire: @questionnaire } }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

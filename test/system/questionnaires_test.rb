@@ -33,9 +33,9 @@ class QuestionnairesTest < BrowserSystemTestCase
     fill_in "Question text", with: "My question text"
     select "True false", from: "Answer type"
     click_on "Save Question"
-    
+
     assert_selector ".btn", text: "Add Question"
-    
+
     question = Question.last
     assert_selector "li.row[id='question_#{question.id}']"
     assert_text "My question text"

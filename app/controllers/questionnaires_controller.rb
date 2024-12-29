@@ -1,6 +1,6 @@
 class QuestionnairesController < ApplicationController
-  before_action :authenticate_user!, except: [:thankyou, :landing]
-  before_action :set_questionnaire, only: [:show, :edit, :update, :destroy, :thankyou]
+  before_action :authenticate_user!, except: [ :thankyou, :landing ]
+  before_action :set_questionnaire, only: [ :show, :edit, :update, :destroy, :thankyou ]
 
   # GET /questionnaires
   # GET /questionnaires.json
@@ -19,7 +19,7 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1.json
   def show
     if params[:show_questions].present?
-      render partial: 'questionnaires/questions', locals: { questionnaire: @questionnaire }
+      render partial: "questionnaires/questions", locals: { questionnaire: @questionnaire }
     else
       render :show
     end
@@ -65,7 +65,7 @@ class QuestionnairesController < ApplicationController
   def destroy
     @questionnaire.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully deleted.' }
+      format.html { redirect_to questionnaires_url, notice: "Questionnaire was successfully deleted." }
     end
   end
 
@@ -84,8 +84,8 @@ class QuestionnairesController < ApplicationController
     def set_questionnaire
       begin
         @questionnaire = Questionnaire.find(params[:id])
-        unless (action_name == 'thankyou') or (@questionnaire.user == current_user) or current_user.admin?
-          redirect_to questionnaires_path, alert: 'Questionnaire not available.'
+        unless (action_name == "thankyou") or (@questionnaire.user == current_user) or current_user.admin?
+          redirect_to questionnaires_path, alert: "Questionnaire not available."
         end
       rescue ActiveRecord::RecordNotFound
         @questionnaire = Questionnaire.new
@@ -95,7 +95,7 @@ class QuestionnairesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def questionnaire_params
       params.require(:questionnaire).permit(:title, :description, :submit_message, :redirect_url, :redirect_delay_secs,
-        :user_id, *Questionnaire::R_ATTRIBUTES.map {|r| r.to_sym},
-        questions_attributes: [:blurb, :answer_type, :choices, :score_range])
+        :user_id, *Questionnaire::R_ATTRIBUTES.map { |r| r.to_sym },
+        questions_attributes: [ :blurb, :answer_type, :choices, :score_range ])
     end
 end
