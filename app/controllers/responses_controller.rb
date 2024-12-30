@@ -39,7 +39,8 @@ class ResponsesController < ApplicationController
           format.html { redirect_to questionnaire_response_path(@questionnaire, @response), notice: "Thank you for your response. (You responded to your own questionnaire!)" }
         else
           ResponseMailer.with(response: @response).send_response.deliver_now
-          format.html { redirect_to thankyou_path(@questionnaire) }
+          # format.html { redirect_to thankyou_path(@questionnaire) }
+          format.html { render }
         end
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,14 +54,6 @@ class ResponsesController < ApplicationController
     @response.destroy
     respond_to do |format|
       format.html { redirect_to questionnaire_responses_url(@questionnaire) }
-    end
-  end
-
-  include EmailAddressUtil
-
-  def verify_email
-    respond_to do |format|
-      format.json { render json: { verified: valid_address?(params[:email_address]) } }
     end
   end
 
