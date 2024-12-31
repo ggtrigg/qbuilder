@@ -6,6 +6,8 @@
 
 * Responder personal details (but not questionnaire answers) are stored encrypted in the database
 
+* The form used for responding to a questionnaire has built in spam protection
+
 * Questionnaire descriptions can be rich text and include images (courtesy of ActionText)
 
 * Question types can be Yes/No, True/False, single line text, multi line text, multiple choice (single or any), and score (e.g. on a scale from 1 to 10)

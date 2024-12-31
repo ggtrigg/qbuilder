@@ -5,6 +5,8 @@ class ResponsesController < ApplicationController
   before_action :set_questionnaire, only: %i[index new create show destroy]
   before_action :authenticate_user!, only: %i[index show destroy]
 
+  invisible_captcha only: %i[create], honeypot: :surname
+
   # GET /responses
   # GET /responses.json
   def index
