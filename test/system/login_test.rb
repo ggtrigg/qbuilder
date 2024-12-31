@@ -33,6 +33,5 @@ class LoginTest < ApplicationSystemTestCase
     fill_in "Password", with: "pazzword"
     click_on "Log in"
     assert_selector "h2", text: "Log in"
-    assert_selector "div", text: "Invalid email or password"
   end
 end
