@@ -111,7 +111,7 @@ Rails.application.configure do
 
   # Local modifications
   config.action_mailer.default_url_options = {
-    host: "www.glenntrigg.net",
+    host: "qbuilder.glenntrigg.net",
     protocol: "https"
   }
 
