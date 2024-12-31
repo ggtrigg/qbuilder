@@ -76,7 +76,9 @@ class QuestionnairesController < ApplicationController
   end
 
   def landing
-    redirect_to questionnaires_path if user_signed_in?
+    respond_to do |format|
+      format.html { redirect_to questionnaires_path if user_signed_in? }
+    end
   end
 
   private
