@@ -56,6 +56,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DB_DATABASE: qbuilder_test
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
     # services:
     #  redis:
     #    image: redis
@@ -74,6 +79,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }}' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
 
       - name: Run tests
         env:

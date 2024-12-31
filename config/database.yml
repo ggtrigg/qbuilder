@@ -30,10 +30,10 @@ development:
 test:
   <<: *default
   # password: <%= ENV['QBUILDER_DATABASE_PASSWORD'] %>
-  database: qbuilder_test
-  host: localhost
-  username: qbuilder
-  password: klemheist
+  database: <%= ENV.fetch("DB_DATABASE") { "qbuilder_test" } %>
+  host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
+  username: <%= ENV.fetch("DB_USERNAME") { "qbuilder" } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "klemheist" } %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
