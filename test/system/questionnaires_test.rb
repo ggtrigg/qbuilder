@@ -49,7 +49,7 @@ class QuestionnairesTest < BrowserSystemTestCase
     assert_selector "button", text: "Details"
     assert_selector "button", text: "Questions"
     click_on "Edit"
-    assert_selector "input", text: "Save"
+    assert_selector "input[value=Save]"
 
     fill_in "Title", with: "The new questionnaire title"
     click_on "Save"
