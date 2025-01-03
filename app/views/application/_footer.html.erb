@@ -3,7 +3,12 @@
   <div class="flex-fill">
     <p class="fs-6"><small><strong>Privacy Statement:</strong> All personal data is stored securely and will not be shared with any other party.</small></p>
   </div>
+  <% if current_user.present? && Feedback::URL.present? %>
+    <div class="flex-fill">
+      <p><small><%= link_to "Provide feedback here", Feedback::URL %></small></p>
+    </div>
+  <% end %>
   <div class="flex-fill">
-    <p class="fs-6 text-body-secondary"><small>Questionnaire Builder - built on rails - by ggt</small></p>
+    <p class="fs-6 text-body-secondary"><small>Questionnaire Builder - by ggt</small></p>
   </div>
 </div>
