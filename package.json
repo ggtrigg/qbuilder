@@ -19,7 +19,7 @@
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "sass": "^1.81.0",
-    "trix": "^2.1.12"
+    "trix": "^2.1.15"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
