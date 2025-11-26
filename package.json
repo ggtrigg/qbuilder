@@ -3,11 +3,11 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "@hotwired/turbo-rails": "^8.0.12",
+    "@hotwired/turbo-rails": "^8.0.20",
     "@popperjs/core": "^2.11.8",
-    "@rails/actioncable": "^6.0.0",
-    "@rails/actiontext": "^8.0.0",
-    "@rails/activestorage": "^6.0.0",
+    "@rails/actioncable": "^8.1.100",
+    "@rails/actiontext": "^8.1.100",
+    "@rails/activestorage": "^8.1.100",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -16,9 +16,9 @@
     "jquery-ui": "^1.13.2",
     "nouislider": "^15.8.1",
     "popper.js": "^1.16.1",
-    "postcss": "^8.4.49",
-    "postcss-cli": "^11.0.0",
-    "sass": "^1.81.0",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "sass": "^1.93.2",
     "trix": "^2.1.15"
   },
   "scripts": {
