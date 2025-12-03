@@ -1,5 +1,5 @@
 module UsersHelper
   def fa_boolean_name(bool)
-    bool ? "check-circle-fill" : "x-circle-fill"
+    bool ? "circle-check" : "circle-xmark"
   end
 end

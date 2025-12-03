@@ -23,12 +23,12 @@
                 <span class="badge badge-pill text-bg-primary"><%= user.questionnaires.count %></span>
                 <% end %>
               </td>
-              <td><%= image_tag("#{fa_boolean_name(user.admin?)}.svg", class: 'img-fluid') %></td>
-              <td><%= image_tag("#{fa_boolean_name(user.confirmed?)}.svg", class: 'img-fluid') %></td>
+              <td><i class="fa-solid fa-<%= fa_boolean_name(user.admin?) %> fa-lg"></i></td>
+              <td><i class="fa-solid fa-<%= fa_boolean_name(user.confirmed?) %> fa-lg"></i></td>
               <td>
                 <% unless user == current_user %>
                   <%= link_to(user, data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }) do %>
-                    <%= image_tag('trash-fill.svg', class: 'img-fluid') %>
+                    <i class="fa-solid fa-trash fa-lg"></i>
                   <% end %>
                 <% end %>
               </td>
@@ -36,10 +36,6 @@
           <% end %>
         </tbody>
       </table>
-  
-      <br>
-  
-      <%# link_to 'New Questionnaire', new_questionnaire_path, class: 'btn btn-primary' %>
     </div>
   </div>
 </turbo-frame>

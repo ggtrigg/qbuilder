@@ -17,6 +17,7 @@ gem "importmap-rails"
 gem "hotwire-rails"
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
+# gem "sprockets-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.14"
 # Use Redis adapter to run Action Cable in production
@@ -24,6 +25,7 @@ gem "jbuilder", "~> 2.14"
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
+gem "bootstrap"
 gem "hashid-rails", "~> 1.4"
 gem "devise"
 gem "acts_as_list"

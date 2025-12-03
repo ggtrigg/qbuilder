@@ -5,5 +5,6 @@ import '@hotwired/turbo-rails'
 import 'trix'
 import '@rails/actiontext'
 // import "channels"
-// import './trix-editor-overrides'
+import "trix-editor-overrides"
 import "controllers"
+import "@fortawesome/fontawesome-free"

@@ -45,7 +45,7 @@ class ResponsesController < ApplicationController
           format.html { render }
         end
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end

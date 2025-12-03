@@ -43,7 +43,7 @@ class QuestionnairesController < ApplicationController
       if @questionnaire.save
         format.html { redirect_to @questionnaire }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end
@@ -55,7 +55,7 @@ class QuestionnairesController < ApplicationController
       if @questionnaire.update(questionnaire_params)
         format.html { redirect_to @questionnaire }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end
