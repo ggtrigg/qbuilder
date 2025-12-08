@@ -85,6 +85,9 @@ jobs:
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }}' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
 
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Run tests
         env:
           RAILS_ENV: test
