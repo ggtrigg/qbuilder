@@ -6,19 +6,20 @@
     <div class="col">
       <h2>Responses to: <%= @questionnaire.title %></h2>
       <small><%= link_to 'Download as csv', questionnaire_responses_path(@questionnaire, format: 'csv') %></small>
+      <div class="row my-1 py-2 position-relative">
+        <% @questionnaire.r_attributes.each do |attr| %>
+          <div class="col"><strong><%= attr.capitalize %></strong></div>
+        <% end %>
+      </div>
       <% @responses.each do |response| %>
         <div class="row my-1 py-2 position-relative">
-          <div class="col">
-            <%= link_to response.name, questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
-          </div>
-          <% if response.phone.present? %>
+          <% @questionnaire.r_attributes.each_with_index do |attr, index| %>
             <div class="col">
-              <%= response.phone %>
-            </div>
-          <% end %>
-          <% if response.email.present? %>
-            <div class="col">
-              <%= response.email %>
+              <% if index == 0 %>
+                <%= link_to response.send(attr), questionnaire_response_path(@questionnaire, response), class: 'text-reset text-decoration-none stretched-link' %>
+              <% else %>
+                <%= response.send(attr) %>
+              <% end %>
             </div>
           <% end %>
         </div>
