@@ -18,7 +18,7 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "sass": "^1.97.3",
-    "trix": "^2.1.17"
+    "trix": "^2.1.18"
   },
   "scripts": {
     "build:css": "bun run build:css:compile && bun run build:css:prefix",
