@@ -1,4 +1,16 @@
+// Configure FA7 module variables
+@use "@fortawesome/fontawesome-free/scss/variables" as fa-v with (
+  $font-path: "./webfonts"
+);
+
+// Import FontAwesome (must use @use to pick up configured module variables)
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/solid";
+@use "@fortawesome/fontawesome-free/scss/regular";
+@use "@fortawesome/fontawesome-free/scss/brands";
+
 @import 'bootstrap/scss/bootstrap';
+
 @import 'actiontext';
 @import 'nouislider/dist/nouislider';
 @import 'questionnaires';
