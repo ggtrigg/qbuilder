@@ -120,7 +120,7 @@ GEM
       railties (>= 7.0)
       responders
       warden (~> 1.2.3)
-    dnsruby (1.73.1)
+    dnsruby (1.74.0)
       base64 (>= 0.2)
       logger (~> 1.6)
       simpleidn (~> 0.2.1)
