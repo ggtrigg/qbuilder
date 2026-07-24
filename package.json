@@ -7,27 +7,22 @@
     "@rails/actioncable": "^8.1.100",
     "@rails/actiontext": "^8.1.100",
     "@rails/activestorage": "^8.1.100",
-    "autoprefixer": "^10.4.22",
     "bootstrap": "^5.3.8",
-    "immutable": "^5.1.9",
     "ion-rangeslider": "^2.3.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.13.2",
     "nodemon": "^3.1.11",
     "nouislider": "^15.8.1",
-    "postcss": "^8.5.12",
-    "postcss-cli": "^11.0.1",
-    "sass": "^1.97.3",
     "trix": "^2.1.18"
   },
   "scripts": {
-    "build:css": "bun run build:css:compile && bun run build:css:prefix",
-    "build:css:compile": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules && cp -r ./node_modules/@fortawesome/fontawesome-free/webfonts ./app/assets/builds/",
-    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css",
-    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"bun run build:css\""
+    "build:css": "bun run build:css:compile",
+    "build:css:compile": "lightningcss --bundle --targets '>= 0.25%' app/assets/stylesheets/application.css -o app/assets/builds/application.css && cp -r ./node_modules/@fortawesome/fontawesome-free/webfonts ./app/assets/builds/ && sed -i 's|\\.\\./webfonts/|./webfonts/|g' app/assets/builds/application.css",
+    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext css --exec 'sh -c \"bun run build:css\"'"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "lightningcss-cli": "^1.33.0",
     "webpack-dev-server": "^5.2.6"
   },
   "resolutions": {

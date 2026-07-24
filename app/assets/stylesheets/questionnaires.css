@@ -1,0 +1,10 @@
+div.trix-content {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.handle {
+  cursor: move;
+  cursor: grab;
+}
