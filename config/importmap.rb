@@ -7,7 +7,7 @@ pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@hotwired/turbo-rails", to: "turbo.min.js"
-pin "@fortawesome/fontawesome-free", to: "@fortawesome--fontawesome-free.js" # @7.2.0
+pin "@fortawesome/fontawesome-free", to: "@fortawesome--fontawesome-free.js" # @7.3.1
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "@hotwired/stimulus", to: "@hotwired--stimulus.js" # @3.2.2
 pin "@stimulus-components/sortable", to: "@stimulus-components--sortable.js" # @5.0.3
