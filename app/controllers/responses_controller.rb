@@ -4,15 +4,16 @@ class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show destroy]
   before_action :set_questionnaire, only: %i[index new create show destroy]
   before_action :authenticate_user!, only: %i[index show destroy]
+  before_action :authorize_response, only: %i[index show destroy]
 
   invisible_captcha only: %i[create], honeypot: :surname
 
   # GET /responses
   # GET /responses.json
   def index
-    @responses = @questionnaire.responses.all
+    @responses = @questionnaire.responses
     csv_headers = @questionnaire.questions.pluck(:blurb).prepend("Name")
-    csv_responses = @questionnaire.responses.map { |response| response.answers.map(&:value).prepend(response.name) }
+    csv_responses = @responses.map { |response| response.answers.map(&:value).prepend(response.name) }
     respond_to do |format|
       format.html
       format.csv { send_data CsvBuilder.build(csv_responses, csv_headers), filename: "responses-#{Date.today}.csv" }
@@ -73,10 +74,18 @@ class ResponsesController < ApplicationController
       unless ([ "new", "create" ].include? action_name) or (@questionnaire.user == current_user) or current_user.admin?
         redirect_to questionnaires_path, alert: "Questionnaire not available."
       end
-  end
+    end
 
     # Only allow a list of trusted parameters through.
     def response_params
       params.require(:response).permit(:name, :address, :phone, :email, :age, :sex, answers_attributes: %i[ id question_id yes_no atext choice ] << { choice: [] })
+    end
+
+    def authorize_response
+      if action_name == "index"
+        redirect_to questionnaires_path, alert: "Not authorized." unless @questionnaire.user == current_user || current_user.admin?
+      else
+        redirect_to questionnaires_path, alert: "Not authorized." unless @response.questionnaire.user == current_user || current_user.admin?
+      end
     end
 end

@@ -1,0 +1,22 @@
+procfile = "Procfile.dev"
+batch_window_ms = 100
+max_log_buffer_mb = 50
+hidden_processes = []
+ignored_processes = []
+start_processes = []
+process_coloring = true
+
+# theme = "dark"  # or "light" for light terminals
+[processes]
+
+[[log_files]]
+name = "log"
+path = "log/development.log"
+
+[filters]
+include = []
+exclude = []
+
+[colors]
+
+[groups]

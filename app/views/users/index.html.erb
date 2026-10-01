@@ -17,7 +17,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr id="<%= dom_id(user) %>">
-              <td><%= link_to user.email, become_user_path(user) %></td>
+              <td><%= link_to user.email, confirm_become_user_path(user) %></td>
               <td class="h4">
                 <%= link_to(questionnaires_uid_path(user)) do %>
                 <span class="badge badge-pill text-bg-primary"><%= user.questionnaires.count %></span>

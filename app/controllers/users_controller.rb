@@ -2,12 +2,18 @@ class UsersController < ApplicationController
   before_action :require_admin
 
   def index
-    @users = User.all
+    @users = User.select(:id, :email, :admin, :created_at, :confirmed_at)
+  end
+
+  def confirm_become
+    @user = User.find(params[:id])
   end
 
   def become
-    return unless current_user.admin?
-    bypass_sign_in(User.find(params[:id]))
+    return unless current_user&.admin?
+    @user = User.find(params[:id])
+    AdminImpersonation.create!(admin: current_user, target_user: @user)
+    bypass_sign_in(@user)
     redirect_to root_url
   end
 
@@ -23,6 +29,6 @@ class UsersController < ApplicationController
   private
 
   def require_admin
-    redirect_to root_path unless current_user.try(:admin?)
+    redirect_to root_path unless current_user&.admin?
   end
 end

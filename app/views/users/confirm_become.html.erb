@@ -1,0 +1,15 @@
+<turbo-frame id="main-content">
+  <div class="row">
+    <div class="col">
+      <h1>Confirm Impersonation</h1>
+
+      <p>Are you sure you want to impersonate <strong><%= @user.email %></strong>?</p>
+
+      <%= form_with url: become_user_path(@user), method: :post, data: { turbo_confirm: "This will sign you in as #{@user.email}. Continue?" } do |form| %>
+        <%= form.submit "Confirm Impersonation", class: "btn btn-warning" %>
+      <% end %>
+
+      <%= link_to "Cancel", users_path, class: "btn btn-secondary ms-2" %>
+    </div>
+  </div>
+</turbo-frame>

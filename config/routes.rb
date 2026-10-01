@@ -14,7 +14,8 @@ Rails.application.routes.draw do
 
   scope "/admin" do
     resources :users, only: [ :index, :destroy ]
-    get "become/(:id)", to: "users#become", as: :become_user
+    get "become/:id/confirm", to: "users#confirm_become", as: :confirm_become_user
+    post "become/:id", to: "users#become", as: :become_user
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
