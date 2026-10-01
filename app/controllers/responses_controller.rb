@@ -36,7 +36,7 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    @response = @questionnaire.responses.build(response_params.reject { |k, v| v.empty? })
+    @response = @questionnaire.responses.build(response_params)
 
     respond_to do |format|
       if @response.save

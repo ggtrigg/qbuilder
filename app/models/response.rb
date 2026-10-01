@@ -6,18 +6,19 @@ class Response < ApplicationRecord
   include Hashid::Rails
   include EmailAddressUtil
 
-  attribute :sexes, :string
-  enum :sexes, { male: 0, female: 1, other: 2 }
+  SEX_OPTIONS = %w[male female other].freeze
 
   validates :name, presence: true
   validates :address, presence: true, if: -> { questionnaire.r_address }
   validates :phone, presence: true, if: -> { questionnaire.r_phone }
   validates :age, presence: true, if: -> { questionnaire.r_age }
   validates :sex, presence: true, if: -> { questionnaire.r_sex }
+  validates :sex, inclusion: { in: SEX_OPTIONS }, allow_blank: true
   validates :email, presence: true, if: -> { questionnaire.r_email }
-  # validates_each :email, if: -> { questionnaire.r_email } do |record, attr, value|
-  #   record.errors.add(attr, 'address invalid') unless record.email_valid?
-  # end
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+  validates_each :email, if: -> { questionnaire.r_email } do |record, attr, value|
+    record.errors.add(attr, "address invalid") unless record.email_valid?
+  end
   validates_associated :answers
 
   encrypts :name

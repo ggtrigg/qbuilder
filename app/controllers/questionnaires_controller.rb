@@ -84,14 +84,12 @@ class QuestionnairesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_questionnaire
-      begin
-        @questionnaire = Questionnaire.find(params[:id])
-        unless (action_name == "thankyou") or (@questionnaire.user == current_user) or current_user.admin?
-          redirect_to questionnaires_path, alert: "Questionnaire not available."
-        end
-      rescue ActiveRecord::RecordNotFound
-        @questionnaire = Questionnaire.new
+      @questionnaire = Questionnaire.find(params[:id])
+      unless (action_name == "thankyou") or (@questionnaire.user == current_user) or current_user.admin?
+        redirect_to questionnaires_path, alert: "Questionnaire not available."
       end
+    rescue ActiveRecord::RecordNotFound
+      redirect_to questionnaires_path, alert: "Questionnaire not found."
     end
 
     # Only allow a list of trusted parameters through.
