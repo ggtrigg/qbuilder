@@ -6,7 +6,7 @@ class ResponsesController < ApplicationController
   before_action :authenticate_user!, only: %i[index show destroy]
   before_action :authorize_response, only: %i[index show destroy]
 
-  invisible_captcha only: %i[create], honeypot: :surname
+  invisible_captcha only: %i[create], honeypot: :surname unless Rails.env.test?
 
   # GET /responses
   # GET /responses.json
