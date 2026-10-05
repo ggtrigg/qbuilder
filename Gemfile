@@ -41,7 +41,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variant
-gem "image_processing", "~> 2.1"
+gem "image_processing", "~> 2.2"
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
