@@ -6,7 +6,11 @@ class ResponsesController < ApplicationController
   before_action :authenticate_user!, only: %i[index show destroy]
   before_action :authorize_response, only: %i[index show destroy]
 
-  invisible_captcha only: %i[create], honeypot: :surname unless Rails.env.test?
+  if !Rails.env.test?
+    invisible_captcha only: %i[create],
+      honeypot: :surname,
+      spinner: -> { "timestamp-#{SecureRandom.hex(8)}" }
+  end
 
   # GET /responses
   # GET /responses.json
@@ -71,8 +75,17 @@ class ResponsesController < ApplicationController
 
     def set_questionnaire
       @questionnaire = Questionnaire.find(params[:questionnaire_id])
-      unless ([ "new", "create" ].include? action_name) or (@questionnaire.user == current_user) or current_user.admin?
-        redirect_to questionnaires_path, alert: "Questionnaire not available."
+      # For actions requiring authentication (index, show, destroy):
+      # - If user is not authenticated, let authenticate_user! handle redirect to login
+      # - If user is authenticated, let authorize_response handle "Not authorized" for non-owners
+      # For new and create (public forms), allow anyone
+      if ([ "new", "create" ].include? action_name)
+        # Public forms - allow anyone
+      elsif user_signed_in?
+        # Authenticated user - let authorize_response handle authorization
+        # Don't redirect here
+      else
+        # Unauthenticated user on index/show/destroy - authenticate_user! will redirect to login
       end
     end
 

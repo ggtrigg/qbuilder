@@ -15,10 +15,18 @@ class Answer < ApplicationRecord
     when :true_false
       yes_no.to_s.humanize
     when :multiple_choice_single
-      question.choices[choice.to_i]
+      index = choice.to_i
+      return "(invalid choice)" if index.negative?
+      question.choices[index] || "(invalid choice)"
     when :multiple_choice_any
       if choice.present?
-        question.choices.values_at(*(JSON.parse(choice).map { |n| n.to_i })).join(multiple_choice_separator)
+        begin
+          indices = JSON.parse(choice).map { |n| n.to_i }
+          return "(No choices selected)" if indices.empty?
+          question.choices.values_at(*indices).compact.join(multiple_choice_separator)
+        rescue JSON::ParserError
+          "(invalid choices data)"
+        end
       else
         "(No choices selected)"
       end

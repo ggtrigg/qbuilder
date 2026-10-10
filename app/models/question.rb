@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   validates :blurb, presence: true
 
   def choices
-    read_attribute(:choices).split /\R/ if read_attribute(:choices).present?
+    read_attribute(:choices).present? ? read_attribute(:choices).split(/\R/) : []
   end
 
   def to_range
@@ -20,6 +20,8 @@ class Question < ApplicationRecord
   end
 
   def inlineable?
+    return false if choices.empty?
+
     max_words = choices.map { |c| c.split.count }.max
     average_length = choices.map { |c| c.length }.sum / choices.count
 

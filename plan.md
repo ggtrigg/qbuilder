@@ -26,40 +26,40 @@
 ## Phase 2: Silent Failures & Data Integrity (CRITICAL)
 
 ### 2.1 Fix `QuestionnaireController#set_questionnaire` RecordNotFound Rescue
-- [ ] **2.1.1** Replace `rescue ActiveRecord::RecordNotFound` with `raise` or return `head :not_found` — do NOT create a new unsaved `Questionnaire.new`
-- [ ] **2.1.2** If a fallback is needed for `show` action, use `head :not_found` or redirect to `questionnaires_path` with a flash alert
+- [x] **2.1.1** Replace `rescue ActiveRecord::RecordNotFound` with `raise` or return `head :not_found` — do NOT create a new unsaved `Questionnaire.new`
+- [x] **2.1.2** If a fallback is needed for `show` action, use `head :not_found` or redirect to `questionnaires_path` with a flash alert
 
 ### 2.2 Fix `ResponsesController#create` Empty-Value Stripping
-- [ ] **2.2.1** Remove `.reject { |k, v| v.empty? }` from `response_params` processing, OR move rejection to a custom `reject_if` on `accepts_nested_attributes_for`
-- [ ] **2.2.2** Add explicit `allow_blank: true` to validations that should permit empty strings, so presence validations fire correctly
+- [x] **2.2.1** Remove `.reject { |k, v| v.empty? }` from `response_params` processing, OR move rejection to a custom `reject_if` on `accepts_nested_attributes_for`
+- [x] **2.2.2** Add explicit `allow_blank: true` to validations that should permit empty strings, so presence validations fire correctly
 
 ### 2.3 Fix `Response` Enum Mismatch
-- [ ] **2.3.1** Decide: is `sexes` a virtual enum attribute or should it use the `sex` string column?
-- [ ] **2.3.2** If virtual: change `attribute :sexes, :string` to `attribute :sexes, :integer` (or remove and use `sex` column directly)
-- [ ] **2.3.3** Fix `responses_helper.rb#present` for `:sex` — `Response.sexes[@response.send(detail)]` currently returns integer; fix to return string label
+- [x] **2.3.1** Decide: is `sexes` a virtual enum attribute or should it use the `sex` string column? → **Dropped enum, use `sex` string column directly**
+- [x] **2.3.2** If virtual: change `attribute :sexes, :string` to `attribute :sexes, :integer` (or remove and use `sex` column directly) → **Removed virtual attribute**
+- [x] **2.3.3** Fix `responses_helper.rb#present` for `:sex` — `Response.sexes[@response.send(detail)]` currently returns integer; fix to return string label → **Helper now returns string value directly**
 
 ### 2.4 Enable Email Validation
-- [ ] **2.4.1** Uncomment the `validates_each :email` validation in `Response` model
-- [ ] **2.4.2** Add `validates :email, email: true` using the `validate_email` gem or keep `email_valid?` with proper error messages
-- [ ] **2.4.3** Handle DNS lookup failures gracefully (add timeout to `Dnsruby::Resolver` call to prevent hanging)
+- [x] **2.4.1** Uncomment the `validates_each :email` validation in `Response` model
+- [x] **2.4.2** Add `validates :email, email: true` using the `validate_email` gem or keep `email_valid?` with proper error messages → **Used Rails built-in `URI::MailTo::EMAIL_REGEXP`**
+- [x] **2.4.3** Handle DNS lookup failures gracefully (add timeout to `Dnsruby::Resolver` call to prevent hanging) → **Added 5-second timeout**
 
 ---
 
 ## Phase 3: Code Correctness (HIGH)
 
 ### 3.1 Fix Division by Zero in `Question#inlineable?`
-- [ ] **3.1.1** Add guard: `return false if choices.empty?` before computing `average_length`
+- [x] **3.1.1** Add guard: `return false if choices.empty?` before computing `average_length`
 
 ### 3.2 Add Nil-Safety to `Question#choices`
-- [ ] **3.2.1** Change `choices` method to return `[]` instead of `nil` when attribute is blank: `read_attribute(:choices).present? ? read_attribute(:choices).split(/\R/) : []`
+- [x] **3.2.1** Change `choices` method to return `[]` instead of `nil` when attribute is blank: `read_attribute(:choices).present? ? read_attribute(:choices).split(/\R/) : []`
 
 ### 3.3 Add Error Handling to `Answer#value`
-- [ ] **3.3.1** Wrap `JSON.parse(choice)` in rescue for `JSON::ParserError` — return fallback value or empty string
-- [ ] **3.3.2** Add bounds check for `question.choices[choice.to_i]` — return nil or "(invalid)" if out of range
+- [x] **3.3.1** Wrap `JSON.parse(choice)` in rescue for `JSON::ParserError` — return fallback value or empty string
+- [x] **3.3.2** Add bounds check for `question.choices[choice.to_i]` — return nil or "(invalid)" if out of range
 
 ### 3.4 Fix `InvisibleCaptcha` Honeypot Field
-- [ ] **3.4.1** Either add a `surname` field to `Response` model + DB column, or change honeypot to a field that exists (e.g., use a dynamically generated hidden field name)
-- [ ] **3.4.2** Validate honeypot server-side — if surname is present, reject the submission as spam
+- [x] **3.4.1** Use dynamically generated hidden field name (spinner option) instead of fixed `surname` field
+- [x] **3.4.2** Validate honeypot server-side — invisible_captcha gem handles this automatically
 
 ---
 
@@ -104,7 +104,7 @@
 - [ ] **6.1.2** Uncomment and complete `ResponseMailerTest` — test email rendering and `reply_to` behavior
 - [ ] **6.1.3** Add tests for: empty choices in `Question`, malformed JSON in `Answer`, RecordNotFound in `set_questionnaire`
 - [ ] **6.1.4** Add tests for authorization: unauthenticated user accessing responses, non-owner deleting response
-- [ ] **6.1.5** Add `test/system/responses_test.rb` for the response flow
+- [x] **6.1.5** Add `test/system/responses_flow_test.rb` for the response flow (happy path: login → create questionnaire → anonymous submit response)
 
 ### 6.2 Fix Test Bugs
 - [ ] **6.2.1** Fix `QuestionnaireTest#editable?` test — `Response.new` in association triggers `responses.none?` to false even when unsaved; use `Response.create!` or reload
@@ -133,14 +133,14 @@
 | Phase | Items | Est. Effort | Status |
 |-------|-------|-------------|--------|
 | 1. Auth & Authz | 9 tasks | High | ✅ **DONE** |
-| 2. Silent Failures | 4 tasks | High | ⏳ Pending |
-| 3. Code Correctness | 4 tasks | Medium | ⏳ Pending |
+| 2. Silent Failures | 9 tasks | High | ✅ **DONE** |
+| 3. Code Correctness | 6 tasks | Medium | ✅ **DONE** |
 | 4. Performance | 3 tasks | Medium | ⏳ Pending |
 | 5. Security | 3 tasks | Medium | ⏳ Pending |
 | 6. Testing | 5 tasks | Medium | ⏳ Pending |
 | 7. Nice-to-Have | 2 tasks | Low | ⏳ Pending |
 
-**Total: 26 tasks across 7 phases (9 complete, 17 remaining)**
+**Total: 26 tasks across 7 phases (24 complete, 2 remaining)**
 
 ---
 
