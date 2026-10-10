@@ -33,6 +33,7 @@ gem "validate_url"
 gem "dnsruby"
 gem "invisible_captcha"
 gem "ruby-vips"
+gem "pagy"
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false

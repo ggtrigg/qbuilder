@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require "csv"
+
 class ResponsesController < ApplicationController
+  include Pagy::Method
+
   before_action :set_response, only: %i[show destroy]
   before_action :set_questionnaire, only: %i[index new create show destroy]
   before_action :authenticate_user!, only: %i[index show destroy]
@@ -15,12 +19,15 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
-    @responses = @questionnaire.responses
+    @pagy, @responses = pagy(@questionnaire.responses.order(created_at: :desc), items: 25)
     csv_headers = @questionnaire.questions.pluck(:blurb).prepend("Name")
-    csv_responses = @responses.map { |response| response.answers.map(&:value).prepend(response.name) }
+
+    # Check if we should warn about large export
+    @large_export_warning = @questionnaire.responses.count > 1000
+
     respond_to do |format|
       format.html
-      format.csv { send_data CsvBuilder.build(csv_responses, csv_headers), filename: "responses-#{Date.today}.csv" }
+      format.csv { stream_csv(csv_headers) }
     end
   end
 
@@ -99,6 +106,27 @@ class ResponsesController < ApplicationController
         redirect_to questionnaires_path, alert: "Not authorized." unless @questionnaire.user == current_user || current_user.admin?
       else
         redirect_to questionnaires_path, alert: "Not authorized." unless @response.questionnaire.user == current_user || current_user.admin?
+      end
+    end
+
+    def stream_csv(headers)
+      filename = "responses-#{Date.today}.csv"
+      response.headers["Content-Type"] = "text/csv"
+      response.headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+      response.headers["Last-Modified"] = Time.current.httpdate
+
+      self.response_body = csv_enumerator(headers)
+    end
+
+    def csv_enumerator(headers)
+      Enumerator.new do |y|
+        y << CSV.generate_line(headers)
+        @questionnaire.responses.order(created_at: :desc).find_in_batches(batch_size: 500) do |batch|
+          batch.each do |response|
+            row = response.answers.map(&:value).prepend(response.name)
+            y << CSV.generate_line(row)
+          end
+        end
       end
     end
 end

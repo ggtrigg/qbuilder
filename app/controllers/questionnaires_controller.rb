@@ -1,17 +1,20 @@
 class QuestionnairesController < ApplicationController
+  include Pagy::Method
+
   before_action :authenticate_user!, except: [ :thankyou, :landing ]
   before_action :set_questionnaire, only: [ :show, :edit, :update, :destroy, :thankyou ]
 
   # GET /questionnaires
   # GET /questionnaires.json
   def index
-    @questionnaires = current_user.admin? ? Questionnaire.order(:user_id, :title).all : current_user.questionnaires.order(:title).all
+    scope = current_user.admin? ? Questionnaire.order(:user_id, :title) : current_user.questionnaires.order(:title)
+    @pagy, @questionnaires = pagy(scope, items: 25)
   end
 
   def index_other
     return unless current_user.admin?
     user = User.find(params[:uid])
-    @questionnaires = user.questionnaires.order(:title).all
+    @pagy, @questionnaires = pagy(user.questionnaires.order(:title), items: 25)
     render :index
   end
 

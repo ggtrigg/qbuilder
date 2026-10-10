@@ -14,6 +14,9 @@
       <%= link_to 'New Questionnaire', new_questionnaire_path, class: 'btn btn-primary' %>
     </div>
     <div class="col-sm-auto">
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+      <%== pagy_info(@pagy) if @pagy.pages > 1 %>
+      
       <% @questionnaires.each do |questionnaire| %>
         <% ctx = questionnaire.responses.present? ? 'info' : 'success' %>
         <div class="row py-2 my-1 border border-<%= ctx %> rounded">
@@ -30,6 +33,8 @@
           <% end %>
         </div>
       <% end %>
+      
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
     </div>
   </div>
 </turbo-frame>

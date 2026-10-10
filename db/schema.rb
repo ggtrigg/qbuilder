@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_01_060451) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_10_230952) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body", size: :long
     t.datetime "created_at", null: false
@@ -107,6 +107,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_060451) do
     t.bigint "questionnaire_id", null: false
     t.string "sex"
     t.datetime "updated_at", null: false
+    t.index ["questionnaire_id", "created_at"], name: "index_responses_on_questionnaire_id_and_created_at"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
   end
 
