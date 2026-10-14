@@ -50,14 +50,13 @@ The public key is the base64 content from `dkim_public.pem` (without the header/
 
 ### Configure DKIM in Rails
 
-Add to `config/environments/production.rb`:
+Add `dkim` gem to Gemfile and run `bundle install`.
 
 ```ruby
-config.action_mailer.dkim = {
-  domain: "yourdomain.com",
-  selector: "default",
-  private_key: Rails.application.credentials.dig(:dkim, :private_key)
-}
+# config/initializers/dkim.rb
+Dkim::domain      = 'yourdomain.com'
+Dkim::selector    = 'default'
+Dkim::private_key = Rails.application.credentials.dig(:dkim, :private_key)
 ```
 
 ## DMARC Record
