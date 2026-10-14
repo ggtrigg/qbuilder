@@ -120,6 +120,7 @@ GEM
       railties (>= 7.0)
       responders
       warden (~> 1.2.3)
+    dkim (1.1.0)
     dnsruby (1.74.0)
       base64 (>= 0.2)
       logger (~> 1.6)
@@ -411,6 +412,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  dkim
   dnsruby
   factory_bot_rails
   faker
