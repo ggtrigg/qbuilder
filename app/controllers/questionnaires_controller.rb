@@ -1,8 +1,8 @@
 class QuestionnairesController < ApplicationController
   include Pagy::Method
 
-  before_action :authenticate_user!, except: [ :thankyou, :landing ]
-  before_action :set_questionnaire, only: [ :show, :edit, :update, :destroy, :thankyou ]
+  before_action :authenticate_user!, except: [ :thankyou, :landing, :redirect_interstitial ]
+  before_action :set_questionnaire, only: [ :show, :edit, :update, :destroy ]
 
   # GET /questionnaires
   # GET /questionnaires.json
@@ -74,7 +74,17 @@ class QuestionnairesController < ApplicationController
 
   def thankyou
     if @questionnaire.redirect_url.present? && @questionnaire.redirect_delay_secs.present?
-      @do_redirect = true
+      redirect_to redirect_interstitial_path(@questionnaire)
+    end
+  end
+
+  def redirect_interstitial
+    @questionnaire = Questionnaire.find(params[:questionnaire_id])
+    @redirect_url = @questionnaire.redirect_url
+    @delay = @questionnaire.redirect_delay_secs || 15
+
+    unless @redirect_url.present?
+      redirect_to root_path, alert: "No redirect configured."
     end
   end
 
@@ -88,7 +98,7 @@ class QuestionnairesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_questionnaire
       @questionnaire = Questionnaire.find(params[:id])
-      unless (action_name == "thankyou") or (@questionnaire.user == current_user) or current_user.admin?
+      unless (@questionnaire.user == current_user) or current_user.admin?
         redirect_to questionnaires_path, alert: "Questionnaire not available."
       end
     rescue ActiveRecord::RecordNotFound

@@ -34,6 +34,7 @@ gem "dnsruby"
 gem "invisible_captcha"
 gem "ruby-vips"
 gem "pagy"
+gem "rack-attack"
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   get "/questionnaires/other/(:uid)", to: "questionnaires#index_other", as: :questionnaires_uid
 
+  # Redirect interstitial for open redirect protection
+  get "/redirect/:questionnaire_id", to: "questionnaires#redirect_interstitial", as: :redirect_interstitial
+
   scope "/admin" do
     resources :users, only: [ :index, :destroy ]
     get "become/:id/confirm", to: "users#confirm_become", as: :confirm_become_user

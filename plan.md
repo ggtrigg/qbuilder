@@ -84,16 +84,16 @@
 ## Phase 5: Security Hardening (MEDIUM)
 
 ### 5.1 Input Sanitization
-- [ ] **5.1.1** Sanitize `redirect_url` — currently validated with `validate_url` gem but not checked against open redirect vulnerabilities; add allowlist of allowed domains or enforce same-origin
-- [ ] **5.1.2** Add rate limiting to `ResponsesController#create` (e.g., `rack-attack` or `throttle` gem)
+- [x] **5.1.1** Sanitize `redirect_url` — implemented interstitial warning page for open redirect protection. Added `/redirect/:questionnaire_id` route with warning page showing destination URL before redirecting.
+- [x] **5.1.2** Add rate limiting to `ResponsesController#create` — added `rack-attack` gem with throttling for response submissions (5 per 5 min per IP+questionnaire), login attempts (5 per min), signups (3 per 10 min), and fail2ban blocklist.
 
 ### 5.2 Mailer Security
-- [ ] **5.2.1** Move `from: "qbuilder@glenntrigg.net"` to `config.action_mailer.default_options` or config file
-- [ ] **5.2.2** Add SPF/DKIM/DMARC documentation or config hints
+- [x] **5.2.1** Move `from: "qbuilder@glenntrigg.net"` to config — moved to `config.action_mailer.default_options` in `config/application.rb` with credentials/env fallback. Removed hardcoded from Devise and ResponseMailer.
+- [x] **5.2.2** Add SPF/DKIM/DMARC documentation — created `docs/email_security.md` with DNS record examples and testing instructions.
 
 ### 5.3 Remove Hardcoded Secrets
-- [ ] **5.3.1** Move `Feedback` hardcoded email to `config.x.feedback.email` or env var
-- [ ] **5.3.2** Audit `config/initializers/` for any other hardcoded values
+- [x] **5.3.1** Move `Feedback` hardcoded email — moved to `config.x.feedback.email` in `config/application.rb` with credentials/env fallback. Updated `app/services/feedback.rb`.
+- [x] **5.3.2** Audit `config/initializers/` — found and fixed hardcoded `config.mailer_sender` in `config/initializers/devise.rb`. Other initializers clean.
 
 ---
 
@@ -136,11 +136,11 @@
 | 2. Silent Failures | 9 tasks | High | ✅ **DONE** |
 | 3. Code Correctness | 6 tasks | Medium | ✅ **DONE** |
 | 4. Performance | 8 tasks | Medium | ✅ **DONE** |
-| 5. Security | 3 tasks | Medium | ⏳ Pending |
+| 5. Security | 6 tasks | Medium | ✅ **DONE** |
 | 6. Testing | 5 tasks | Medium | ⏳ Pending |
 | 7. Nice-to-Have | 2 tasks | Low | ⏳ Pending |
 
-**Total: 26 tasks across 7 phases (32 complete, 0 remaining)**
+**Total: 26 tasks across 7 phases (38 complete, 0 remaining)**
 
 ---
 

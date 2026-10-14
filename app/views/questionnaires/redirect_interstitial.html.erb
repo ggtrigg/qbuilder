@@ -1,0 +1,39 @@
+<turbo-frame id="main-content">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+      <div class="card my-5">
+        <div class="card-header bg-warning">
+          <h4 class="mb-0"><i class="fa-solid fa-triangle-exclamation me-2"></i>External Redirect Warning</h4>
+        </div>
+        <div class="card-body">
+          <p class="lead">You are about to leave this questionnaire and be redirected to an external website.</p>
+          
+          <div class="alert alert-info">
+            <strong>Destination:</strong><br>
+            <code><%= @redirect_url %></code>
+          </div>
+          
+          <p class="text-muted">
+            This redirect was configured by the questionnaire creator. 
+            We cannot verify the safety or legitimacy of external websites.
+          </p>
+          
+          <div class="d-flex gap-2">
+            <%= link_to @redirect_url, class: 'btn btn-primary', target: '_blank', rel: 'noopener noreferrer' do %>
+              <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Continue to External Site
+            <% end %>
+            
+            <%= link_to 'Stay Here', root_path, class: 'btn btn-secondary' %>
+          </div>
+          
+          <hr>
+          
+          <p class="small text-muted">
+            If you didn't expect this redirect, or if the destination looks suspicious, 
+            click "Stay Here" and contact the questionnaire creator.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</turbo-frame>

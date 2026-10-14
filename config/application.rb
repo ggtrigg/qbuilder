@@ -28,5 +28,15 @@ module Qbuilder
     config.action_view.form_with_generates_remote_forms = false
     config.assets.paths << Rails.root.join("node_modules/bootstrap-icons/icons")
     config.assets.paths << Rails.root.join("node_modules/@fortawesome/fontawesome-free/webfonts")
+
+    # Mailer default options
+    config.action_mailer.default_options = {
+      from: Rails.application.credentials.dig(:mailer, :default_from) || ENV.fetch("MAILER_DEFAULT_FROM") { "qbuilder@glenntrigg.net" }
+    }
+
+    # Feedback configuration
+    config.x.feedback = {
+      email: Rails.application.credentials.dig(:feedback, :email) || ENV.fetch("FEEDBACK_EMAIL") { "ggt@glenntrigg.net" }
+    }
   end
 end
