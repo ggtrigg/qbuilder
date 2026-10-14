@@ -54,9 +54,12 @@ Add `dkim` gem to Gemfile and run `bundle install`.
 
 ```ruby
 # config/initializers/dkim.rb
-Dkim::domain      = 'yourdomain.com'
-Dkim::selector    = 'default'
-Dkim::private_key = Rails.application.credentials.dig(:dkim, :private_key)
+Dkim.domain      = 'yourdomain.com'
+Dkim.selector    = 'default'
+Dkim.private_key = Rails.application.credentials.dig(:dkim, :private_key)
+
+# This will sign all ActionMailer deliveries
+ActionMailer::Base.register_interceptor(Dkim::Interceptor)
 ```
 
 ## DMARC Record
