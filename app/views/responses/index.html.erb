@@ -15,8 +15,7 @@
       
       <small><%= link_to 'Download as csv', questionnaire_responses_path(@questionnaire, format: 'csv') %></small>
       
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-      <%== pagy_info(@pagy) if @pagy.pages > 1 %>
+      <%== @pagy.series_nav(:bootstrap) if @pagy.pages > 1 %>
       
       <div class="row my-1 py-2 position-relative">
         <% @questionnaire.r_attributes.each do |attr| %>
@@ -37,7 +36,7 @@
         </div>
       <% end %>
       
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+      <%== @pagy.series_nav(:bootstrap) if @pagy.pages > 1 %>
     </div>
   </div>
 </turbo-frame>

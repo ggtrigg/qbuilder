@@ -14,8 +14,7 @@
       <%= link_to 'New Questionnaire', new_questionnaire_path, class: 'btn btn-primary' %>
     </div>
     <div class="col-sm-auto">
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-      <%== pagy_info(@pagy) if @pagy.pages > 1 %>
+      <%== @pagy.series_nav(:bootstrap) if @pagy.pages > 1 %>
       
       <% @questionnaires.each do |questionnaire| %>
         <% ctx = questionnaire.responses.present? ? 'info' : 'success' %>
@@ -34,7 +33,7 @@
         </div>
       <% end %>
       
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+      <%== @pagy.series_nav(:bootstrap) if @pagy.pages > 1 %>
     </div>
   </div>
 </turbo-frame>
