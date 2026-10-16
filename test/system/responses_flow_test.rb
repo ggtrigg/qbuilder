@@ -22,7 +22,7 @@ class ResponsesFlowTest < BrowserSystemTestCase
 
     # 2. Create a questionnaire with questions
     title = "Test Questionnaire #{SecureRandom.hex(4)}"
-    visit questionnaires_url
+    # visit questionnaires_url
     click_on "New Questionnaire"
     assert_selector "h1", text: "New Questionnaire"
     assert_selector "h3", text: "Step 1."

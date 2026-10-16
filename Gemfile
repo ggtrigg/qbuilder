@@ -27,6 +27,7 @@ gem "jbuilder", "~> 2.15"
 
 gem "bootstrap"
 gem "hashid-rails", "~> 1.4"
+gem "csv"
 gem "devise"
 gem "dkim"
 gem "acts_as_list"
