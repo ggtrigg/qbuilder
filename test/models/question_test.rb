@@ -46,12 +46,12 @@ class QuestionTest < ActiveSupport::TestCase
 
   test "choices splits on newlines" do
     @question.choices = "Option 1\nOption 2\nOption 3"
-    assert_equal ["Option 1", "Option 2", "Option 3"], @question.choices
+    assert_equal [ "Option 1", "Option 2", "Option 3" ], @question.choices
   end
 
   test "choices handles Windows line endings" do
     @question.choices = "Option 1\r\nOption 2\r\nOption 3"
-    assert_equal ["Option 1", "Option 2", "Option 3"], @question.choices
+    assert_equal [ "Option 1", "Option 2", "Option 3" ], @question.choices
   end
 
   # Test for inlineable? method

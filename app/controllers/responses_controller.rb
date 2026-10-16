@@ -86,7 +86,7 @@ class ResponsesController < ApplicationController
       # - If user is not authenticated, let authenticate_user! handle redirect to login
       # - If user is authenticated, let authorize_response handle "Not authorized" for non-owners
       # For new and create (public forms), allow anyone
-      if ([ "new", "create" ].include? action_name)
+      if [ "new", "create" ].include?(action_name)
         # Public forms - allow anyone
       elsif user_signed_in?
         # Authenticated user - let authorize_response handle authorization

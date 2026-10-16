@@ -1,0 +1,39 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "876849573b708eabd06e404dcde887c08dfc775e2428b9ee42984afd00ca34b3",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/questionnaires/redirect_interstitial.html.erb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Questionnaire.find(params[:questionnaire_id]).redirect_url, :class => \"btn btn-primary\", :target => \"_blank\", :rel => \"noopener noreferrer\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "QuestionnairesController",
+          "method": "redirect_interstitial",
+          "line": 87,
+          "file": "app/controllers/questionnaires_controller.rb",
+          "rendered": {
+            "name": "questionnaires/redirect_interstitial",
+            "file": "app/views/questionnaires/redirect_interstitial.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "questionnaires/redirect_interstitial"
+      },
+      "user_input": "Questionnaire.find(params[:questionnaire_id]).redirect_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "8.1.0"
+}

@@ -12,7 +12,7 @@ class Questionnaire < ApplicationRecord
   include Hashid::Rails
 
   validates :title, presence: true
-  validates :redirect_url, url: { allow_blank: true }
+  validates :redirect_url, url: { accept_array: [ "http", "https" ] }, allow_blank: true
 
   R_ATTRIBUTES = %w[ r_address r_email r_phone r_age r_sex ]
 

@@ -41,7 +41,7 @@ class Rack::Attack
     [
       429,
       { "Content-Type" => "application/json", "Retry-After" => retry_after.to_s },
-      [{ error: "Too many requests. Please wait before trying again." }.to_json]
+      [ { error: "Too many requests. Please wait before trying again." }.to_json ]
     ]
   end
 
@@ -50,7 +50,7 @@ class Rack::Attack
     [
       403,
       { "Content-Type" => "application/json" },
-      [{ error: "Access denied." }.to_json]
+      [ { error: "Access denied." }.to_json ]
     ]
   end
 end
