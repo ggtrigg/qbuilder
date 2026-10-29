@@ -8,7 +8,10 @@
 # You can control the number of workers using ENV["WEB_CONCURRENCY"]. You
 # should only set this value when you want to run 2 or more workers. The
 # default is already 1.
-#
+
+rack_env = ENV.fetch("RAILS_ENV") { ENV.fetch("RACK_ENV") { "development" } }
+environment rack_env
+
 # The ideal number of threads per worker depends both on how much time the
 # application spends waiting for IO operations and on how much you wish to
 # prioritize throughput over latency.
@@ -28,7 +31,11 @@ threads_count = ENV.fetch("RAILS_MAX_THREADS", 3)
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT", 4004)
+if rack_env == "production"
+  bind "unix:/run/puma/qbuilder.sock"
+else
+  port ENV.fetch("PORT", 4004)
+end
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
